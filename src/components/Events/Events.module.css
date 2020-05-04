@@ -1,0 +1,49 @@
+
+.eventItem img {
+    max-height: 200px;
+    max-width: 200px;
+}
+.eventContent{
+    padding: 10px;
+    display: grid;
+    grid-template-rows: 50px 1fr 2fr;
+    grid-template-columns: 3fr 1fr;
+    text-align: center;
+    grid-auto-rows: 100px;
+    grid-auto-columns: 100px;
+    margin: -10px;
+    grid-gap: 10px;
+}
+
+.eventHeader {
+    background-color: black;
+    grid-column: 1/3;
+    grid-row: 0/2;
+}
+.eventItem{
+    grid-column: 0/2;
+    grid-row: 2/4;
+    background-color: honeydew;
+    border: black 1px solid;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+}
+.eventFilter{
+    grid-column: 2/3;
+    grid-row: 2/3;
+    background-color: honeydew;
+    font-size: 25px;
+    font-weight: initial;
+    border: black 1px solid;
+}
+.eventHeader a {
+    text-decoration: none;
+    margin: 15px;
+    color: white;
+    font-weight: lighter;
+    font-size: 30px;
+}
+.eventHeader a.active {
+    color: coral;
+}

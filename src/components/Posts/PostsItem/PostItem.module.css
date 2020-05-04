@@ -1,0 +1,23 @@
+.post img {
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 10px;
+    padding: 5px;
+    float: left;
+
+}
+ .post {
+     text-align: center;
+     overflow: auto;
+     border: lightgray solid 1px;
+     margin: 10px;
+ }
+.post button img {
+    position: static;
+    max-width: 25px;
+    max-height: 25px;
+}
+.post textarea {
+    width: 300px;
+    height: 100px;
+}

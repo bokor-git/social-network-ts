@@ -1,0 +1,16 @@
+.dialogs{
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+}
+.dialogItems .dialog{
+    grid-column: 1;
+    padding: 10px;
+}
+.dialogItems .active{
+  color: coral;
+}
+.massages .message{
+ grid-column: 2;
+    padding: 10px;
+
+}

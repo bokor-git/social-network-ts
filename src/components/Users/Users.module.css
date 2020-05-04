@@ -1,0 +1,24 @@
+.users img {
+    max-width: 100px;
+    max-height: 100px;
+    margin: 10px;
+    border: black solid 2px;
+}
+
+.border {
+    margin: 10px;
+}
+.pageNumber {
+    padding: 1px;
+    margin: 1px;
+    font-weight: lighter;
+    border: gray 1px solid;
+    color: gray;
+
+}
+.selected {
+    margin: 1px;
+    font-weight: bold;
+    border: black 1px solid;
+    color: black;
+}

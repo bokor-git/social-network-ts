@@ -1,0 +1,5 @@
+.category {
+    background-color: tomato;
+    grid-column: 1;
+    grid-row: 5/7;
+}

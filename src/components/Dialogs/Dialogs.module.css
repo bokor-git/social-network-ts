@@ -1,0 +1,21 @@
+.dialogs{
+    display: grid;
+    grid-template-columns: 2fr 8fr;
+}
+.dialogItems .dialog{
+    grid-column: 1;
+    padding: 10px;
+}
+.dialogItems .active{
+  color: coral;
+}
+.massages .message{
+ grid-column: 2;
+    padding: 10px;
+}
+.dialogs textarea{
+    height: 100px;
+    width: 300px;
+    font-size: 10px;
+    position: center;
+  }
