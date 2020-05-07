@@ -1,7 +1,15 @@
+import {Action, Dispatch} from "redux";
+
 const ADD_EVENT = "ADD_EVENT";
 const CLEAN = "CLEAN";
 
-export const addEvent = (eventID, evText) => {
+type addEventType = {
+    type: typeof ADD_EVENT| typeof CLEAN
+    eventID: number
+    evText: string
+}
+
+export const addEvent = (eventID:number, evText:string):addEventType =>  {
     return {type: ADD_EVENT, eventID: eventID, evText: evText}
 };
 
@@ -9,9 +17,19 @@ export const clean = () => {
     return {type: CLEAN}
 };
 
+type initialStateType={
+    eventData: Array< {
+        id: number
+        text: string
+        poster: string
+        type: string
+    }>
+    myEvents: Array<{}>
+
+}
 
 
-let initialState = {
+let initialState:initialStateType = {
     eventData: [
         {
             id: 1,
@@ -63,7 +81,9 @@ let initialState = {
         },],
     myEvents: []
 };
-const eventsReducer = (state = initialState, action) => {
+
+
+const eventsReducer = (state = initialState, action:addEventType)=> {
     switch (action.type) {
         case ADD_EVENT:
             state.eventData.map(i => {
@@ -87,6 +107,6 @@ const eventsReducer = (state = initialState, action) => {
 
 export default eventsReducer;
 
-export const cleanThunk=()=>dispatch=>{
+export const cleanThunk=()=>(dispatch: Dispatch<Action>)=>{
     dispatch(clean())
 }
