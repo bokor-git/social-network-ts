@@ -1,4 +1,5 @@
 import {userAPI} from "../api/api";
+import {UserType} from  "../types/types"
 
 const FOLLOW = "users/FOLLOW";
 const UNFOLLOW = "users/UNFOLLOW";
@@ -7,17 +8,6 @@ const SET_CURRENT_PAGE = "users/SET_CURRENT_PAGE";
 const SET_TOTAL_USERS = "users/SET_TOTAL_USERS";
 const TOGGLE_IS_FETCHING = "users/TOGGLE_IS_FETCHING";
 const FOLLOFING_IN_PROGRESS = "users/FOLLOFING_IN_PROGRESS";
-
-type UserType = {
-    name: string
-    id: number
-    photos: {
-        small: string
-        large: string
-    }
-    status: string
-    followed: boolean
-}
 
 
 type UsersActionTypes = {
