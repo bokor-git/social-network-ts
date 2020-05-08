@@ -1,13 +1,22 @@
 import React from 'react';
 import s from "./Users.module.css";
 import User from "./User";
+import {UserType} from "../../types/types";
 
 
-const Users = ({users,follow, unfollow, followingInProgress}) => {
-    return <div>
+
+type PropsType= {
+    users: Array<UserType>
+    follow:(userID: number)=>void
+    unfollow:(userID: number)=>void
+    followingInProgress:Array<number>
+}
+
+
+const Users:React.FC<PropsType> = ({users,follow, unfollow, followingInProgress}) => {
+    return <div className={s.users}>
         <h1>USER LIST</h1>
         {users.map(u => <User key={u.id}
-                                 className={s.users}
                                  user={u}
                                  followingInProgress={followingInProgress}
                                  unfollow={unfollow}

@@ -11,7 +11,7 @@ import { reducer as formReducer } from 'redux-form'
 import appReducer from "./app-reducer";
 
 
-let reducers = combineReducers(
+let rootReducers = combineReducers(
     {
         postPage: postsReducer,
         dialogPage: dialogReducer,
@@ -25,8 +25,12 @@ let reducers = combineReducers(
     }
 );
 
+type RootReducersType = typeof rootReducers
+export type AppStateType = ReturnType<RootReducersType>
+
+// @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)))
+const store = createStore(rootReducers, composeEnhancers(applyMiddleware(thunkMiddleware)))
 
 
 export default store;

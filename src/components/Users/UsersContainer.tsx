@@ -20,14 +20,40 @@ import {
     getUsersSuper
 } from "../../Redux/users-selectors";
 import UserPagesCount from "./Pagenation";
+import {UserType} from "../../types/types";
+import {AppStateType} from "../../Redux/redux-store";
 
 
-class UsersAPIComponent extends React.Component {
+type MapStateToPropsType = {
+
+    users: Array<UserType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
+    followingInProgress: Array<number>
+}
+type MapDispatchToPropsType = {
+    follow: (userID: number) => void
+    unfollow: (userID: number) => void
+    getUsersThunkCreator: (currentPage: number, pageSize: number) => void
+    setCurrentPage: (p: number) => void
+    toggleFollowingProgress: (isFetching: boolean, userID: number) => void
+
+
+}
+type OwnPropsType = {
+    title: string
+}
+
+type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType
+
+class UsersAPIComponent extends React.Component<PropsType> {
     componentDidMount() {
         this.props.getUsersThunkCreator(this.props.currentPage, this.props.pageSize)
     }
 
-    onPageChanged = (p) => {
+    onPageChanged = (p: number) => {
         this.props.getUsersThunkCreator(p, this.props.pageSize)
         this.props.setCurrentPage(p);
     };
@@ -38,6 +64,7 @@ class UsersAPIComponent extends React.Component {
             return <Loading/>;
         return (
             <div>
+                <h2>{this.props.title}</h2>
                 <UserPagesCount currentPage={this.props.currentPage}
                                 onPageChanged={this.onPageChanged}
                                 totalUsersCount={this.props.totalUsersCount}
@@ -54,7 +81,7 @@ class UsersAPIComponent extends React.Component {
 
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         users: getUsersSuper(state),
         pageSize: getPageSize(state),
@@ -67,7 +94,9 @@ let mapStateToProps = (state) => {
 }
 
 export default compose(
-    connect(mapStateToProps, {
+    //<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState>
+    connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStateType>
+    (mapStateToProps, {
         follow,
         unfollow,
         setCurrentPage,

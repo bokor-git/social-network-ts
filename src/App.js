@@ -51,7 +51,7 @@ class App extends React.Component {
                     <Route path="/Events" render={() => (<EventContainer/>)}/>
                     <Route exact path="/Dialogs" render={withSuspense(DialogsContainer)}/>
                     <Route exact path="/Posts" render={() => (<Posts/>)}/>
-                    <Route exact path="/Users" render={() => (<UsersContainer/>)}/>
+                    <Route exact path="/Users" render={() => (<UsersContainer title="Own Props Title"/>)}/>
                     <Route exact path="/News" render={() => (<NewsContainer/>)}/>
                     <Route exact path="/Login" render={() => (<Login/>)}/>
                         <Route exact path="/Store" render={() => (<Calc/>)}/>
