@@ -2,19 +2,37 @@ const ADD_POST = "dialog-reducer/ADD-POST";
 const LIKE_POST = "dialog-reducer/LIKE_POST";
 const DELETE_POST = "dialog-reducer/DELETE_POST";
 
-export const addPostActionCreator = (post) => {
-    return {type: ADD_POST, post}
+
+type PostsActionCreatorsTypes = {
+    type: typeof ADD_POST | typeof LIKE_POST | typeof DELETE_POST
+    post?: string
+    postID?: number
 }
 
-export const postLikeAC = (postID) => {
+export const addPostActionCreator = (post: string): PostsActionCreatorsTypes => {
+    return {type: ADD_POST, post: post}
+}
+
+export const postLikeAC = (postID: number): PostsActionCreatorsTypes => {
     return {type: LIKE_POST, postID}
 }
-export const deletePostActionCreator = (postID) => {
+export const deletePostActionCreator = (postID: number): PostsActionCreatorsTypes => {
     return {type: DELETE_POST, postID}
 }
 
 
-let initialState = {
+type PostType = {
+    id: number
+    postText?: string
+    postLike: number
+    postAvatar: string
+}
+
+type InitialStateType = {
+    postData: Array<PostType>
+}
+
+let initialState: InitialStateType = {
     postData: [
         {
             id: 1,
@@ -36,10 +54,11 @@ let initialState = {
         }
     ],
 };
-const dialogsReducer = (state = initialState, action) => {
+const postsReducer = (state = initialState, action: PostsActionCreatorsTypes): InitialStateType => {
     switch (action.type) {
         case ADD_POST:
-            let newPost = {
+            let newPost: PostType = {
+                id: state.postData.length + 1,
                 postText: action.post,
                 postLike: 0,
                 postAvatar: "https://www.shareicon.net/data/512x512/2016/06/27/787163_people_512x512.png"
@@ -47,7 +66,6 @@ const dialogsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 postData: [...state.postData, newPost],
-                newPostText: " "
             };
         case LIKE_POST:
             return {
@@ -68,11 +86,11 @@ const dialogsReducer = (state = initialState, action) => {
             return state
     }
 }
-export default dialogsReducer;
+export default postsReducer;
 
-export const addPostThunk = (post) => (dispatch) => {
+export const addPostThunk = (post: string) => (dispatch: any) => {
     dispatch(addPostActionCreator(post))
 }
-export const postLikeThunk = (userID) => (dispatch) => {
+export const postLikeThunk = (userID: number) => (dispatch: any) => {
     dispatch(postLikeAC(userID))
 }

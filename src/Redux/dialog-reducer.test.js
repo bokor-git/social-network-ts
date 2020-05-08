@@ -1,6 +1,6 @@
 
 import React from "react";
-import dialogsReducer, {addPostActionCreator, deletePostActionCreator} from "./dialogs-reducer";
+import postsReducer, {addPostActionCreator, deletePostActionCreator} from "./posts-reducer";
 
 
 
@@ -33,7 +33,7 @@ test('new post should be added', () => {
     // 2. Action
 
     let action = addPostActionCreator("new post text")
-    let newState = dialogsReducer(State,action)
+    let newState = postsReducer(State,action)
 
     // 3. Expectation
 
@@ -44,7 +44,7 @@ test('new post should be deleted', () => {
     // 2. Action
 
     let action = deletePostActionCreator(1)
-    let newState = dialogsReducer(State,action)
+    let newState = postsReducer(State,action)
     expect(newState.postData.length).toBe(2)
 
 });

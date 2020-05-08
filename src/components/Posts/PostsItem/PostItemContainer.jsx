@@ -1,5 +1,5 @@
 
-import { addPostThunk,  postLikeThunk} from "../../../Redux/dialogs-reducer";
+import { addPostThunk,  postLikeThunk} from "../../../Redux/posts-reducer";
 import {connect} from "react-redux";
 import PostItem from "./PostItem";
 import React from "react";
