@@ -12,9 +12,26 @@ import s from "./Events.module.css";
 import EventHeader from "./Event/EventHeader";
 import EventFilter from "./Event/EventFilter";
 import {Route, Switch} from "react-router-dom";
+import {AppStateType} from "../../Redux/redux-store";
 
+export type EventDataType = Array<{
+    id: number
+    text: string
+    poster: string
+    type: string
+}>
 
-class EventItemContainerAPI extends React.Component {
+type MapStateToPropsType= {
+    eventData: EventDataType
+    myEvents: Array<{}>
+}
+
+export type AddEventType ={
+    addEvent: (eventID:number, evText:string)=>void
+}
+type MapDispatchToPropsType=AddEventType
+
+class EventItemContainerAPI extends React.Component<MapStateToPropsType&MapDispatchToPropsType> {
     render() {
         return <div className={s.eventContent}>
             <EventFilter/>
@@ -33,14 +50,14 @@ class EventItemContainerAPI extends React.Component {
 }
 
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state:AppStateType) => {
     return {
         eventData: state.eventPage.eventData,
         myEvents: state.eventPage.myEvents,
     }
 };
 
-
-const EventContainer = connect(mapStateToProps, {addEvent})(EventItemContainerAPI);
+//<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState>
+const EventContainer = connect<MapStateToPropsType, MapDispatchToPropsType,{},AppStateType>(mapStateToProps, {addEvent})(EventItemContainerAPI);
 export default EventContainer;
 

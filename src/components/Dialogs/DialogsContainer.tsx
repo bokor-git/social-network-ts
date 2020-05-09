@@ -4,15 +4,22 @@ import {connect} from "react-redux";
 import React from "react";
 import withAuthRedirect from "../../hoc/AuthRedirect";
 import {compose} from "redux";
+import {AppStateType} from "../../Redux/redux-store";
+
+export type DialogsPropsType = {
+    dialogsData: Array<{id:number; name: string}>
+    massageData: Array<{id: number, text: string}>
+    sendMassageCreator: (massage:string)=>void
+}
 
 
-class DialogsContainerAPI extends React.Component {
+class DialogsContainerAPI extends React.Component<DialogsPropsType> {
     render() {
         return <Dialogs {...this.props}/>
     }
-};
+}
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state:AppStateType) => {
     return {
         dialogsData: state.dialogPage.dialogsData,
         massageData: state.dialogPage.massageData,
@@ -21,16 +28,9 @@ let mapStateToProps = (state) => {
 
 };
 
-let mapDispatchToProps = (dispatch) => {
-    return {
-        onSendMassageButtonClick: (massage) => {
-            dispatch(sendMassageCreator(massage))
-        }
-    }
-};
 
 export default compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(mapStateToProps, {sendMassageCreator}),
     withAuthRedirect
 )
 (DialogsContainerAPI)
