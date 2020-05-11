@@ -21,15 +21,17 @@ export const setProfileDate = (profileData: ProfileDataType): ProfileActionsType
 });
 export const setStatusProfile = (status: string): ProfileActionsType => ({type: SET_STATUS_PROFILE, status: status});
 export const savePhotoSuccess = (photos: string): ProfileActionsType => ({type: SAVE_PHOTO_SUCCESS, photos: photos});
-type InitialStateType = {
+/*type InitialStateType = {
     profileData: null | ProfileDataType
-    status: "" | string
-}
+    status: " " | string
+}*/
 
-let initialState: InitialStateType = {
-    profileData: null,
-    status: ""
+let initialState = {
+    profileData: null as null | ProfileDataType,
+    status: " " as " " | string
 };
+
+type  InitialStateType = typeof initialState
 
 const myProfileReducer = (state = initialState, action: ProfileActionsType) => {
     switch (action.type) {
@@ -55,7 +57,7 @@ const myProfileReducer = (state = initialState, action: ProfileActionsType) => {
             return state
     }
 };
-export const getProfileInfo = (userId: number) => async (dispatch: any) => {
+export const getProfileInfo = (userId: number|null) => async (dispatch: any) => {
     const response = await profileAPI.getProfile(userId)
     dispatch(setProfileDate(response.data))
 

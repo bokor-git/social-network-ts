@@ -3,18 +3,34 @@ import s from "./Profile.module.css";
 import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
 import {getProfileInfo} from "../../Redux/profile-reducer";
+import {AppStateType} from "../../Redux/redux-store";
+import {ProfileDataType} from "../../types/types";
 
-class Profile extends React.Component {
+type mapStateToPropsType = {
+    profileData: null | ProfileDataType
+    isAuth: boolean
+    userID: null | number
+    status: " " | string
+}
+
+type mapDispatchToPropsType =  {
+    getProfileInfo: (userID:number|null)=>void
+}
+
+type ProfilePropsType= mapStateToPropsType&mapDispatchToPropsType
+
+class Profile extends React.Component<ProfilePropsType> {
     componentDidMount() {
-        debugger
         this.props.getProfileInfo(this.props.userID)
     }
 
     render() {
+
         return (
             <div className={s.profile}>
                 <h3>Profile menu</h3>
                 {this.props.isAuth ?
+                    // @ts-ignore
                     <img src={this.props.profileData != null ? this.props.profileData.photos.small :
                         "https://www.shareicon.net/data/512x512/2016/06/27/787163_people_512x512.png"}/> :
                     <img src="https://www.shareicon.net/data/512x512/2016/06/27/787163_people_512x512.png"/>
@@ -26,12 +42,16 @@ class Profile extends React.Component {
     }
 }
 
-let mapStateToProps = (state) => {
+let mapStateToProps = (state:AppStateType) => {
     return {
+        // @ts-ignore
         profileData: state.myProfilePage.profileData,
         isAuth: state.auth.isAuth,
         userID: state.auth.userID,
+        // @ts-ignore
+        status: state.myProfilePage.status
     }
 };
-const ProfileContainer = connect(mapStateToProps, {getProfileInfo})(Profile)
+const ProfileContainer = connect<mapStateToPropsType, mapDispatchToPropsType, {},AppStateType>
+(mapStateToProps, {getProfileInfo})(Profile)
 export default ProfileContainer;

@@ -16,12 +16,12 @@ export const addPostActionCreator = (post: string): PostsActionCreatorsTypes => 
 export const postLikeAC = (postID: number): PostsActionCreatorsTypes => {
     return {type: LIKE_POST, postID}
 }
-export const deletePostActionCreator = (postID: number): PostsActionCreatorsTypes => {
+export const deletePostAC = (postID: number): PostsActionCreatorsTypes => {
     return {type: DELETE_POST, postID}
 }
 
 
-type PostType = {
+export type PostType = {
     id: number
     postText?: string
     postLike: number
@@ -30,6 +30,7 @@ type PostType = {
 
 type InitialStateType = {
     postData: Array<PostType>
+    newPostText: string
 }
 
 let initialState: InitialStateType = {
@@ -51,8 +52,10 @@ let initialState: InitialStateType = {
             postText: "Despite the success of that first race, it took 13 more years of arguing before the International Amateur Athletic Federatio Olympics, there were six different distances.",
             postLike: 6,
             postAvatar: "https://www.shareicon.net/data/512x512/2016/06/27/787163_people_512x512.png"
-        }
+        },
+
     ],
+    newPostText: " "
 };
 const postsReducer = (state = initialState, action: PostsActionCreatorsTypes): InitialStateType => {
     switch (action.type) {
@@ -66,6 +69,7 @@ const postsReducer = (state = initialState, action: PostsActionCreatorsTypes): I
             return {
                 ...state,
                 postData: [...state.postData, newPost],
+                newPostText: " "
             };
         case LIKE_POST:
             return {
@@ -78,6 +82,7 @@ const postsReducer = (state = initialState, action: PostsActionCreatorsTypes): I
                 }),
             };
         case DELETE_POST:
+            debugger
             return {
                 ...state,
                 postData: state.postData.filter(p => p.id != action.postID)
@@ -93,4 +98,7 @@ export const addPostThunk = (post: string) => (dispatch: any) => {
 }
 export const postLikeThunk = (userID: number) => (dispatch: any) => {
     dispatch(postLikeAC(userID))
+}
+export const deletePost = (userID: number) => (dispatch: any) => {
+    dispatch(deletePostAC(userID))
 }

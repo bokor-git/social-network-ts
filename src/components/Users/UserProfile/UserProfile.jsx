@@ -2,7 +2,7 @@ import React from 'react';
 import s from "./UserProfile.module.css"
 import UserProfileInfo from "./UserProfileInfo";
 import UserProfileStatusHooks from "./UserProfileStatusHooks";
-import Posts from "../../Posts/Posts";
+import UsersContainer from "../../Posts/PostsItem/PostItemContainer"
 
 const UserProfile = (props) => {
     return <div className={s.profile}>
@@ -14,7 +14,7 @@ const UserProfile = (props) => {
         <UserProfileStatusHooks status={props.status}
                                 updateProfileStatus={props.updateProfileStatus}
                                 getProfileStatus={props.getProfileStatus}/>
-        <Posts/>
+        <UsersContainer/>
     </div>
 }
 export default UserProfile;

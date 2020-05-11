@@ -4,10 +4,14 @@ import {Redirect} from "react-router-dom";
 import {Field, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utilits/validators/validators";
 import {Textarea} from "../../common/FormsControls/FormsControls";
+import {deletePost, PostType} from "../../../Redux/posts-reducer";
 
 
 const maxLength10 =maxLengthCreator(15)
 
+
+
+// @ts-ignore
 const PostForm = ({handleSubmit}) => {
     return <form onSubmit={handleSubmit}>
         <div><Field placeholder={"Post"} name={"Post"} component={Textarea}
@@ -15,12 +19,24 @@ const PostForm = ({handleSubmit}) => {
         <button> Add post</button>
     </form>
 }
-
-const ReduxPostForm = reduxForm({
+type formData = {
+    Post:string
+}
+type ErrorType = string
+const ReduxPostForm = reduxForm  <formData, {}, ErrorType>({
     form: 'post'
 })(PostForm);
 
-const PostItem =  ({isAuth, postData, postLikeThunk, addPostThunk}) => {
+type PostItemPropsType = {
+    postData: Array<PostType>
+    newPostText: string
+    isAuth: boolean
+    addPostThunk: (post: string) => void
+    postLikeThunk: (userID: number) => void
+    deletePost: (userID: number) => void
+}
+
+const PostItem =  ({isAuth, postData, postLikeThunk, addPostThunk, deletePost}:PostItemPropsType) => {
     if (isAuth === false) return <Redirect to={"/Login"}/>
     let postElement = postData.map
     (p => <div className={style.post}>
@@ -32,10 +48,14 @@ const PostItem =  ({isAuth, postData, postLikeThunk, addPostThunk}) => {
         }}>
             like
         </button>
+        <button onClick={() => {
+            deletePost(p.id)
+        }}>
+            delete
+        </button>
     </div>);
 
-
-    let onSubmit = (formData) => {
+    let onSubmit = (formData:formData) => {
         addPostThunk((formData.Post))};
 
     return (

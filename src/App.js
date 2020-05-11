@@ -3,7 +3,6 @@ import './App.css';
 import Profile from "./components/Profile-menu/Profile";
 import Category from "./components/Category/Category";
 import {BrowserRouter, HashRouter, Redirect, Route, Switch, withRouter} from "react-router-dom";
-import Posts from "./components/Posts/Posts";
 import UsersContainer from "./components/Users/UsersContainer";
 import UserProfileContainer from "./components/Users/UserProfile/UserProfileContainer";
 import NewsContainer from "./components/News/NewsContainer";
@@ -19,6 +18,7 @@ import store from "./Redux/redux-store";
 import withSuspense from "./hoc/Suspense";
 import Calc from "./components/Store/Store";
 import TodoList from "./components/Store/Todo";
+import PostContainer from "./components/Posts/PostsItem/PostItemContainer";
 //import DialogsContainer from "./components/Dialogs/DialogsContainer";
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
@@ -50,7 +50,7 @@ class App extends React.Component {
                     <Route exact path="/Profile/:userID?" render={() => (<UserProfileContainer/>)}/>
                     <Route path="/Events" render={() => (<EventContainer/>)}/>
                     <Route exact path="/Dialogs" render={withSuspense(DialogsContainer)}/>
-                    <Route exact path="/Posts" render={() => (<Posts/>)}/>
+                    <Route exact path="/Posts" render={() => (<PostContainer/>)}/>
                     <Route exact path="/Users" render={() => (<UsersContainer title="Own Props Title"/>)}/>
                     <Route exact path="/News" render={() => (<NewsContainer/>)}/>
                     <Route exact path="/Login" render={() => (<Login/>)}/>
