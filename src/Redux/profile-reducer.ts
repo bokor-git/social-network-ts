@@ -21,17 +21,17 @@ export const setProfileDate = (profileData: ProfileDataType): ProfileActionsType
 });
 export const setStatusProfile = (status: string): ProfileActionsType => ({type: SET_STATUS_PROFILE, status: status});
 export const savePhotoSuccess = (photos: string): ProfileActionsType => ({type: SAVE_PHOTO_SUCCESS, photos: photos});
-/*type InitialStateType = {
+type InitialStateType = {
     profileData: null | ProfileDataType
     status: " " | string
-}*/
+}
 
-let initialState = {
+let initialState:InitialStateType = {
     profileData: null as null | ProfileDataType,
     status: " " as " " | string
 };
 
-type  InitialStateType = typeof initialState
+
 
 const myProfileReducer = (state = initialState, action: ProfileActionsType) => {
     switch (action.type) {

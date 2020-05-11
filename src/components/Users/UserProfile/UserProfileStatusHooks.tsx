@@ -1,8 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 
+type UserProfileStatusHooksPropsType = {
+    status: " " | string
+    updateProfileStatus: (status: string) => void
+    getProfileStatus: (userId: number | null) => void
+}
 
-
-const UserProfileStatusHooks = (props) => {
+const UserProfileStatusHooks = (props:UserProfileStatusHooksPropsType) => {
     let [editMode, setEditMode] = useState(false);
     let [status, setStatus] = useState(props.status);
     useEffect(()=>{
@@ -14,7 +18,7 @@ const UserProfileStatusHooks = (props) => {
         setEditMode(false)
         props.updateProfileStatus(status);
     }
-    let onStatusChange=(e)=>{
+    let onStatusChange=(e:ChangeEvent<HTMLInputElement>)=>{
         setStatus(e.currentTarget.value)
     };
 

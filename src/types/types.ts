@@ -20,8 +20,8 @@ export type ProfileDataType = {
     lookingForAJob?: boolean
     lookingForAJobDescription?: string
     fullName: string
-    contacts?: ContactsType
-    photos?: PhotosType
+    contacts: ContactsType
+    photos: PhotosType
 }
 
 export type UserType = {

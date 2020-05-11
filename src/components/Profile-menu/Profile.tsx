@@ -7,7 +7,7 @@ import {AppStateType} from "../../Redux/redux-store";
 import {ProfileDataType} from "../../types/types";
 
 type mapStateToPropsType = {
-    profileData: null | ProfileDataType
+    profileData:  ProfileDataType
     isAuth: boolean
     userID: null | number
     status: " " | string
@@ -30,7 +30,7 @@ class Profile extends React.Component<ProfilePropsType> {
             <div className={s.profile}>
                 <h3>Profile menu</h3>
                 {this.props.isAuth ?
-                    // @ts-ignore
+
                     <img src={this.props.profileData != null ? this.props.profileData.photos.small :
                         "https://www.shareicon.net/data/512x512/2016/06/27/787163_people_512x512.png"}/> :
                     <img src="https://www.shareicon.net/data/512x512/2016/06/27/787163_people_512x512.png"/>
