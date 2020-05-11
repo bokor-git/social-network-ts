@@ -6,9 +6,11 @@ import withAuthRedirect from "../../hoc/AuthRedirect";
 import {compose} from "redux";
 import {AppStateType} from "../../Redux/redux-store";
 
+export type MassageDataType = Array<{id: number, text: string}>
+
 export type DialogsPropsType = {
     dialogsData: Array<{id:number; name: string}>
-    massageData: Array<{id: number, text: string}>
+    massageData: MassageDataType
     sendMassageCreator: (massage:string)=>void
 }
 

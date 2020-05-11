@@ -16,14 +16,21 @@ const HeaderMenu = ()=> {
 
 
 
+type HeaderPropsType = {
+    singOutThunk: (email: string, password: string, captcha: string)=>void
+    login: null | string
+    isAuth: boolean
+}
 
-
-const Header = ({isAuth, login, singOutThunk})=> {
+const Header = ({isAuth, login, singOutThunk}:HeaderPropsType)=> {
     return(
         <div className={s.header}>
             <div className={s.headerText}>iRunner</div>
             <HeaderMenu/>
-            {isAuth? <div className={s.login}><div> <div></div>{login}</div> <button onClick={()=>{singOutThunk()}}>logout</button></div>:
+
+            {isAuth? <div className={s.login}><div> <div></div>{login}</div> <button onClick={()=>{
+                // @ts-ignore
+                    singOutThunk()}}>logout</button></div>:
                 <NavLink to={"/login"}>
             <div className={s.login}>Login</div>
         </NavLink>}

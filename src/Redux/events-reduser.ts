@@ -17,13 +17,14 @@ export const clean = () => {
     return {type: CLEAN}
 };
 
+export type EventType = {
+    id: number
+    text: string
+    poster: string
+    type: string
+}
 type initialStateType={
-    eventData: Array< {
-        id: number
-        text: string
-        poster: string
-        type: string
-    }>
+    eventData: Array<EventType>
     myEvents: Array<{}>
 
 }

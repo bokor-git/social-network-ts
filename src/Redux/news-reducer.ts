@@ -1,10 +1,13 @@
 
-
 let initialState = {
-    newsData:
-        {},
+    newsData: [
+        {title: "News will be here"}
+    ]
+}
+
+
+type NewsReducerStateType = typeof initialState
+const newsReducer = (state= initialState, action: any): NewsReducerStateType => {
+    return state
 };
-const newsReducer = (state = initialState, action:any) => {
-            return state
-    };
 export default newsReducer;
