@@ -1,7 +1,7 @@
 import {applyMiddleware, combineReducers, compose, createStore} from "redux";
 import postsReducer from "./posts-reducer";
 import dialogReducer from "./dialog-reducer";
-import eventsReducer from "./events-reduser";
+import eventsReducer from "./events-reducer";
 import usersReducer from "./users-reducer";
 import myProfileReducer from "./profile-reducer";
 import newsReducer from "./news-reducer";

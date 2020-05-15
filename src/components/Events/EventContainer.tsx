@@ -7,7 +7,7 @@ import {
     Marathons5kmItems,
 } from "./Event/EventsItems";
 import {connect} from "react-redux";
-import {addEvent} from "../../Redux/events-reduser";
+import {addEvent} from "../../Redux/events-reducer";
 import s from "./Events.module.css";
 import EventHeader from "./Event/EventHeader";
 import EventFilter from "./Event/EventFilter";

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect, DefaultRootState} from "react-redux";
 import MyEventItem from "./MyEventItem";
-import {cleanThunk, EventType} from "../../Redux/events-reduser";
+import {cleanThunk, EventType} from "../../Redux/events-reducer";
 import {AppStateType} from "../../Redux/redux-store";
 
 

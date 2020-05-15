@@ -1,19 +1,23 @@
 import {Action, Dispatch} from "redux";
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
 
 const ADD_EVENT = "ADD_EVENT";
 const CLEAN = "CLEAN";
 
-type addEventType = {
-    type: typeof ADD_EVENT| typeof CLEAN
+type AddEventType = {
+    type: typeof ADD_EVENT
     eventID: number
     evText: string
 }
-
-export const addEvent = (eventID:number, evText:string):addEventType =>  {
+export const addEvent = (eventID:number, evText:string):AddEventType =>  {
     return {type: ADD_EVENT, eventID: eventID, evText: evText}
 };
 
-export const clean = () => {
+type CleanType = {
+    type: typeof CLEAN
+}
+export const clean = ():CleanType => {
     return {type: CLEAN}
 };
 
@@ -83,8 +87,9 @@ let initialState:initialStateType = {
     myEvents: []
 };
 
+type ActionTypes= AddEventType| CleanType
 
-const eventsReducer = (state = initialState, action:addEventType)=> {
+const eventsReducer = (state = initialState, action:ActionTypes)=> {
     switch (action.type) {
         case ADD_EVENT:
             state.eventData.map(i => {
@@ -105,9 +110,10 @@ const eventsReducer = (state = initialState, action:addEventType)=> {
 
 };
 
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionTypes>
 
-export default eventsReducer;
-
-export const cleanThunk=()=>(dispatch: Dispatch<Action>)=>{
+export const cleanThunk=():ThunkType=>(dispatch)=>{
     dispatch(clean())
 }
+
+export default eventsReducer;

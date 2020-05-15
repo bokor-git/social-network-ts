@@ -1,33 +1,42 @@
+import {ThunkAction} from "redux-thunk";
+import {AppStateType} from "./redux-store";
+
 const ADD_POST = "dialog-reducer/ADD-POST";
 const LIKE_POST = "dialog-reducer/LIKE_POST";
 const DELETE_POST = "dialog-reducer/DELETE_POST";
 
 
 type PostsActionCreatorsTypes = {
-    type: typeof ADD_POST | typeof LIKE_POST | typeof DELETE_POST
-    post?: string
-    postID?: number
+    type: typeof ADD_POST
+    post: string
 }
-
 export const addPostActionCreator = (post: string): PostsActionCreatorsTypes => {
     return {type: ADD_POST, post: post}
 }
 
-export const postLikeAC = (postID: number): PostsActionCreatorsTypes => {
+type PostLikeACType = {
+    type: typeof LIKE_POST
+    postID: number
+}
+export const postLikeAC = (postID: number): PostLikeACType => {
     return {type: LIKE_POST, postID}
 }
-export const deletePostAC = (postID: number): PostsActionCreatorsTypes => {
+
+type DeletePostACType = {
+    type: typeof DELETE_POST
+    postID:number
+}
+export const deletePostAC = (postID: number): DeletePostACType => {
     return {type: DELETE_POST, postID}
 }
 
 
 export type PostType = {
     id: number
-    postText?: string
+    postText: string
     postLike: number
     postAvatar: string
 }
-
 type InitialStateType = {
     postData: Array<PostType>
     newPostText: string
@@ -57,7 +66,10 @@ let initialState: InitialStateType = {
     ],
     newPostText: " "
 };
-const postsReducer = (state = initialState, action: PostsActionCreatorsTypes): InitialStateType => {
+
+type ActionTypes = PostsActionCreatorsTypes | PostLikeACType | DeletePostACType
+
+const postsReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
         case ADD_POST:
             let newPost: PostType = {
@@ -93,12 +105,15 @@ const postsReducer = (state = initialState, action: PostsActionCreatorsTypes): I
 }
 export default postsReducer;
 
-export const addPostThunk = (post: string) => (dispatch: any) => {
+type ThunkType = ThunkAction<void, AppStateType, unknown, ActionTypes>
+
+
+export const addPostThunk = (post: string):ThunkType => (dispatch) => {
     dispatch(addPostActionCreator(post))
 }
-export const postLikeThunk = (userID: number) => (dispatch: any) => {
+export const postLikeThunk = (userID: number):ThunkType => (dispatch) => {
     dispatch(postLikeAC(userID))
 }
-export const deletePost = (userID: number) => (dispatch: any) => {
+export const deletePost = (userID: number):ThunkType => (dispatch) => {
     dispatch(deletePostAC(userID))
 }
