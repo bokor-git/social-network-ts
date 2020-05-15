@@ -65,23 +65,23 @@ const authReducer = (state = initialState, action: ActionTypes): InitialStateTyp
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
 
 export const getAuthUserData = ():ThunkType => async (dispatch) => {
-        let response = await authAPI.me()
-        if (response.data.resultCode === 0) {
-            dispatch(setAuthUserData(response.data.data.id, response.data.data.email, response.data.data.login, true))
+        let meData = await authAPI.me()
+        if (meData.resultCode === 0) {
+            dispatch(setAuthUserData(meData.data.id, meData.data.email, meData.data.login, true))
         }
     }
-;
+
 export const singInThunk = (email: string, password: string, captcha: string):ThunkType => async (dispatch) => {
-    const response = await authAPI.login(email, password, captcha);
-    if (response.data.resultCode === 0) {
+    const loginData = await authAPI.login(email, password, captcha);
+    if (loginData.resultCode === 0) {
         dispatch(getAuthUserData())
     } else {
-        if (response.data.resultCode === 10) {
+        if (loginData.resultCode === 10) {
             dispatch(getCaptchaUrl())
         }
-        let action = stopSubmit("login", {_error: response.data.messages})
+        let massage = loginData.messages.length>0?loginData.messages[0]:"Some error";
         // @ts-ignore
-        dispatch(action)
+        dispatch(stopSubmit("login", {_error: massage}))
     }
 }
 export const singOutThunk = ():ThunkType => async (dispatch) => {

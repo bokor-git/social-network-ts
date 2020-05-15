@@ -1,6 +1,6 @@
 import {profileAPI} from "../api/api";
 import {stopSubmit} from "redux-form";
-import {ProfileDataType} from "../types/types"
+import {PhotosType, ProfileDataType} from "../types/types"
 import {ThunkAction} from "redux-thunk";
 import {AppStateType} from "./redux-store";
 
@@ -27,9 +27,9 @@ export const setStatusProfile = (status: string): SetStatusProfileActionType => 
 
 type SavePhotoSuccessActionType = {
     type: typeof SAVE_PHOTO_SUCCESS
-    photos: string
+    photos: PhotosType
 }
-export const savePhotoSuccess = (photos: string): SavePhotoSuccessActionType => ({type: SAVE_PHOTO_SUCCESS, photos: photos});
+export const savePhotoSuccess = (photos: PhotosType): SavePhotoSuccessActionType => ({type: SAVE_PHOTO_SUCCESS, photos: photos});
 
 
 let initialState = {
