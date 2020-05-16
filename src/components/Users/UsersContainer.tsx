@@ -2,9 +2,8 @@ import React from 'react';
 import {connect} from "react-redux";
 import {
     follow,
-    setCurrentPage,
+    actions,
     unfollow,
-    toggleFollowingProgress,
     requestUsers
 }
     from "../../Redux/users-reducer";
@@ -25,7 +24,6 @@ import {AppStateType} from "../../Redux/redux-store";
 
 
 type MapStateToPropsType = {
-
     users: Array<UserType>
     pageSize: number
     totalUsersCount: number
@@ -99,8 +97,8 @@ export default compose(
     (mapStateToProps, {
         follow,
         unfollow,
-        setCurrentPage,
-        toggleFollowingProgress,
+        setCurrentPage:actions.setCurrentPage,
+        toggleFollowingProgress:actions.toggleFollowingProgress,
         getUsersThunkCreator: requestUsers
     }),
 )(UsersAPIComponent)
