@@ -2,7 +2,7 @@ import React from 'react';
 import s from "./UserProfile.module.css"
 import UserProfileInfo from "./UserProfileInfo";
 import UserProfileStatusHooks from "./UserProfileStatusHooks";
-import UsersContainer from "../../Posts/PostsItem/PostItemContainer"
+import PostContainer from "../../Posts/PostsItem/PostItemContainer"
 import {ProfileDataType} from "../../../types/types";
 
 type UserProfilePropsType = {
@@ -28,8 +28,7 @@ const UserProfile = (props:UserProfilePropsType) => {
         <UserProfileStatusHooks status={props.status}
                                 updateProfileStatus={props.updateProfileStatus}
                                 getProfileStatus={props.getProfileStatus}/>
-        // @ts-ignore
-        <UsersContainer />
+      {/*<PostContainer/>*/}
     </div>
 }
 export default UserProfile;

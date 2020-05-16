@@ -37,9 +37,9 @@ let mapStateToProps = (state: AppStateType) => {
 };
 
 
-const UsersContainer = compose (connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
+const PostContainer = compose (connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
     (mapStateToProps, {addPostThunk, postLikeThunk, deletePost}),
     withAuthRedirect)
 (PostContainerAPI)
 
-export default UsersContainer
+export default PostContainer
