@@ -7,7 +7,7 @@ import {
     Marathons5kmItems,
 } from "./Event/EventsItems";
 import {connect} from "react-redux";
-import {addEvent} from "../../Redux/events-reducer";
+import {action} from "../../Redux/events-reducer";
 import s from "./Events.module.css";
 import EventHeader from "./Event/EventHeader";
 import EventFilter from "./Event/EventFilter";
@@ -58,6 +58,6 @@ let mapStateToProps = (state:AppStateType) => {
 };
 
 //<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState>
-const EventContainer = connect<MapStateToPropsType, MapDispatchToPropsType,{},AppStateType>(mapStateToProps, {addEvent})(EventItemContainerAPI);
+const EventContainer = connect<MapStateToPropsType, MapDispatchToPropsType,{},AppStateType>(mapStateToProps, {addEvent:action.addEvent})(EventItemContainerAPI);
 export default EventContainer;
 

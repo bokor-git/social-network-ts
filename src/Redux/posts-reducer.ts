@@ -1,35 +1,13 @@
 import {ThunkAction} from "redux-thunk";
-import {AppStateType} from "./redux-store";
-
-const ADD_POST = "dialog-reducer/ADD-POST";
-const LIKE_POST = "dialog-reducer/LIKE_POST";
-const DELETE_POST = "dialog-reducer/DELETE_POST";
+import {AppStateType, InferActionTypes} from "./redux-store";
 
 
-type PostsActionCreatorsTypes = {
-    type: typeof ADD_POST
-    post: string
-}
-export const addPostActionCreator = (post: string): PostsActionCreatorsTypes => {
-    return {type: ADD_POST, post: post}
-}
 
-type PostLikeACType = {
-    type: typeof LIKE_POST
-    postID: number
+const actions = {
+    addPostActionCreator: (post: string) => ({type: "ADD_POST", post: post} as const),
+    postLikeAC: (postID: number) => ({type: "LIKE_POST", postID} as const),
+    deletePostAC: (postID: number) => ({type: "DELETE_POST", postID} as const)
 }
-export const postLikeAC = (postID: number): PostLikeACType => {
-    return {type: LIKE_POST, postID}
-}
-
-type DeletePostACType = {
-    type: typeof DELETE_POST
-    postID:number
-}
-export const deletePostAC = (postID: number): DeletePostACType => {
-    return {type: DELETE_POST, postID}
-}
-
 
 export type PostType = {
     id: number
@@ -67,11 +45,11 @@ let initialState: InitialStateType = {
     newPostText: " "
 };
 
-type ActionTypes = PostsActionCreatorsTypes | PostLikeACType | DeletePostACType
+type ActionTypes = InferActionTypes<typeof actions>
 
 const postsReducer = (state = initialState, action: ActionTypes): InitialStateType => {
     switch (action.type) {
-        case ADD_POST:
+        case "ADD_POST":
             let newPost: PostType = {
                 id: state.postData.length + 1,
                 postText: action.post,
@@ -83,7 +61,7 @@ const postsReducer = (state = initialState, action: ActionTypes): InitialStateTy
                 postData: [...state.postData, newPost],
                 newPostText: " "
             };
-        case LIKE_POST:
+        case "LIKE_POST":
             return {
                 ...state,
                 postData: state.postData.map(p => {
@@ -93,7 +71,7 @@ const postsReducer = (state = initialState, action: ActionTypes): InitialStateTy
                     return p
                 }),
             };
-        case DELETE_POST:
+        case "DELETE_POST":
             debugger
             return {
                 ...state,
@@ -109,11 +87,11 @@ type ThunkType = ThunkAction<void, AppStateType, unknown, ActionTypes>
 
 
 export const addPostThunk = (post: string):ThunkType => (dispatch) => {
-    dispatch(addPostActionCreator(post))
+    dispatch(actions.addPostActionCreator(post))
 }
 export const postLikeThunk = (userID: number):ThunkType => (dispatch) => {
-    dispatch(postLikeAC(userID))
+    dispatch(actions.postLikeAC(userID))
 }
 export const deletePost = (userID: number):ThunkType => (dispatch) => {
-    dispatch(deletePostAC(userID))
+    dispatch(actions.deletePostAC(userID))
 }

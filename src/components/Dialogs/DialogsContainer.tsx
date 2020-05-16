@@ -1,4 +1,4 @@
-import {sendMassageCreator} from "../../Redux/dialog-reducer";
+import {action} from "../../Redux/dialog-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import React from "react";
@@ -32,7 +32,7 @@ let mapStateToProps = (state:AppStateType) => {
 
 
 export default compose(
-    connect(mapStateToProps, {sendMassageCreator}),
+    connect(mapStateToProps, {sendMassageCreator:action.sendMassageCreator}),
     withAuthRedirect
 )
 (DialogsContainerAPI)
