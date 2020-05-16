@@ -1,5 +1,5 @@
 import axios from "axios";
-import {PhotosType, ProfileDataType} from "../types/types";
+import {PhotosType, ProfileDataType, UserType} from "../types/types";
 
 const instance = axios.create({
     withCredentials: true,
@@ -9,20 +9,44 @@ const instance = axios.create({
     }
 })
 
+type GetUserType = {
+    items: Array<UserType>
+    totalCount: number
+    error: null | string
+}
+type UnfollowType = {
+    resultCode: number
+    messages: Array<string>
+    data: {}
+}
+type FollowType = {
+    resultCode: number
+    messages: Array<string>
+    data: {}
+}
+
+export enum ResponseResultCode {
+    Success=0,
+    Error = 1,
+    CaptchaIsRequired=10
+
+}
+
+
 export const userAPI = {
     getUsers: (currentPage: number, pageSize: number) => {
-        return instance.get(`users?Page=${currentPage}&count=${pageSize}`,)
+        return instance.get<GetUserType>(`users?Page=${currentPage}&count=${pageSize}`,)
             .then(response => {
                 return response.data
             })
     },
     unfollowAPI: (userID: number) => {
-        return instance.delete(`follow/${userID}`).then(response => {
+        return instance.delete<UnfollowType>(`follow/${userID}`).then(response => {
             return response.data
         })
     },
     followAPI: (userID: number) => {
-        return instance.post(`follow/${userID}`).then(response => {
+        return instance.post<FollowType>(`follow/${userID}`).then(response => {
             return response.data
         })
     },
