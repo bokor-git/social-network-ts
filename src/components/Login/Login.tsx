@@ -18,9 +18,9 @@ type LoginFormOwnProps = {
 const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, LoginFormOwnProps> & LoginFormOwnProps> = ({handleSubmit, error, captchaUrl}) => {
 
     return <form onSubmit={handleSubmit}>
-        {myCreateField("Email", "Email", [required, maxLength40], "Input",)}
-        {myCreateField("Password", "Password", [required, maxLength40], "Input", {type: "password"})}
-        {myCreateField(undefined, "rememberMe", [], "Input",{type: "checkbox"}, "remember me" )}
+        {myCreateField<LoginFormDataTypeKeys>("Email", "Email", [required, maxLength40], "Input",)}
+        {myCreateField<LoginFormDataTypeKeys>("Password", "Password", [required, maxLength40], "Input", {type: "password"})}
+        {myCreateField<LoginFormDataTypeKeys>(undefined, "rememberMe", [], "Input",{type: "checkbox"}, "remember me" )}
 
         {error && <div className={style.summaryError}>
             {error}
@@ -56,6 +56,8 @@ type LoginFormDataType = {
     captcha: string
     rememberMe: boolean
 }
+
+type LoginFormDataTypeKeys = Extract<keyof LoginFormDataType, string>
 
 const Login: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (props) => {
 
