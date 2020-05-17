@@ -1,5 +1,4 @@
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, InferActionTypes} from "./redux-store";
+import { BaseThunkType, InferActionTypes} from "./redux-store";
 
 
 
@@ -45,9 +44,9 @@ let initialState: InitialStateType = {
     newPostText: " "
 };
 
-type ActionTypes = InferActionTypes<typeof actions>
+type ActionsTypes = InferActionTypes<typeof actions>
 
-const postsReducer = (state = initialState, action: ActionTypes): InitialStateType => {
+const postsReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case "ADD_POST":
             let newPost: PostType = {
@@ -83,7 +82,7 @@ const postsReducer = (state = initialState, action: ActionTypes): InitialStateTy
 }
 export default postsReducer;
 
-type ThunkType = ThunkAction<void, AppStateType, unknown, ActionTypes>
+type ThunkType = BaseThunkType<ActionsTypes, void>
 
 
 export const addPostThunk = (post: string):ThunkType => (dispatch) => {

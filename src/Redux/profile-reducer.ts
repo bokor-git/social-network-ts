@@ -1,8 +1,7 @@
 import {ResponseResultCode} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {PhotosType, ProfileDataType} from "../types/types"
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, InferActionTypes} from "./redux-store";
+import { BaseThunkType, InferActionTypes} from "./redux-store";
 import {profileAPI} from "../api/profile-api";
 
 
@@ -20,9 +19,9 @@ export const actions = {
 }
 
 
-type ActionsType = InferActionTypes<typeof actions>
+type ActionsTypes = InferActionTypes<typeof actions>
 
-const myProfileReducer = (state = initialState, action: ActionsType) => {
+const myProfileReducer = (state = initialState, action: ActionsTypes) => {
     switch (action.type) {
         case "SET_USER_PROFILE": {
             return {
@@ -47,7 +46,7 @@ const myProfileReducer = (state = initialState, action: ActionsType) => {
     }
 };
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
+type ThunkType = BaseThunkType<ActionsTypes>
 
 export const getProfileInfo = (userId: number | null): ThunkType => async (dispatch) => {
     const data = await profileAPI.getProfile(userId)

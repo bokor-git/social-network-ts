@@ -1,7 +1,7 @@
 import {ResponseResultCode} from "../api/api";
 import { stopSubmit } from "redux-form";
 import {ThunkAction} from "redux-thunk";
-import {AppStateType, InferActionTypes} from "./redux-store";
+import {AppStateType, BaseThunkType, InferActionTypes} from "./redux-store";
 import {authAPI} from "../api/auth-api";
 import {securityAPI} from "../api/security-api";
 
@@ -20,9 +20,9 @@ let initialState = {
 
 type InitialStateType = typeof  initialState
 
-type ActionTypes = InferActionTypes<typeof actions>
+type ActionsTypes = InferActionTypes<typeof actions>
 
-const authReducer = (state = initialState, action: ActionTypes): InitialStateType => {
+const authReducer = (state = initialState, action: ActionsTypes): InitialStateType => {
     switch (action.type) {
         case "SET_USER_DATA":
             return {
@@ -41,7 +41,7 @@ const authReducer = (state = initialState, action: ActionTypes): InitialStateTyp
     }
 };
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionTypes>
+type ThunkType = BaseThunkType<ActionsTypes>
 
 export const getAuthUserData = ():ThunkType => async (dispatch) => {
         let meData = await authAPI.me()

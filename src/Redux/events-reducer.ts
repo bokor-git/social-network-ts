@@ -1,6 +1,4 @@
-
-import {ThunkAction} from "redux-thunk";
-import {AppStateType, InferActionTypes} from "./redux-store";
+import { BaseThunkType, InferActionTypes} from "./redux-store";
 
 
 export type EventType = {
@@ -9,18 +7,14 @@ export type EventType = {
     poster: string
     type: string
 }
-type initialStateType={
-    eventData: Array<EventType>
-    myEvents: Array<{}>
 
-}
 
 export const action = {
     addEvent: (eventID:number, evText:string) => ({type: "ADD_EVENT", eventID: eventID, evText: evText} as const),
     clean : () => ({type: "CLEAN"} as const)
 }
 
-let initialState:initialStateType = {
+let initialState = {
     eventData: [
         {
             id: 1,
@@ -70,15 +64,15 @@ let initialState:initialStateType = {
             poster: "https://image.shutterstock.com/image-vector/running-marathon-people-run-colorful-600w-633344339.jpg",
             type: "full"
         },],
-    myEvents: []
+    myEvents: [] as Array<string>
 };
+type initialStateType= typeof initialState
+type ActionsTypes= InferActionTypes<typeof action>
 
-type ActionTypes= InferActionTypes<typeof action>
-
-const eventsReducer = (state = initialState, action:ActionTypes)=> {
+const eventsReducer = (state = initialState, action:ActionsTypes)=> {
     switch (action.type) {
         case "ADD_EVENT":
-            state.eventData.map(i => {
+            state.eventData.map((i) => {
                 if (action.eventID === i.id) {
                     state.myEvents.push(action.evText)
                 }
@@ -96,7 +90,7 @@ const eventsReducer = (state = initialState, action:ActionTypes)=> {
 
 };
 
-type ThunkType = ThunkAction<void, AppStateType, unknown, ActionTypes>
+type ThunkType = BaseThunkType<ActionsTypes, void>
 
 export const cleanThunk=():ThunkType=>(dispatch)=>{
     dispatch(action.clean())
