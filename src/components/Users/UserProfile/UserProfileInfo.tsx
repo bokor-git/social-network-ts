@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 import s from "./UserProfile.module.css"
 import Loading from "../../common/Conponents/Loading";
 import {ProfileDataFormRedux} from "./ProfileDataForm";
-import {ProfileDataType} from "../../../types/types";
+import {ContactsType, ProfileDataType} from "../../../types/types";
 
 
 type UserProfileInfoPropsType = {
@@ -44,15 +44,16 @@ type ProfileDataPropsType = {
     isOwner: boolean
     goToEditMode:()=>void
 }
-
+type KeyType = keyof ContactsType
 const ProfileData = ({profileData, isOwner, goToEditMode}:ProfileDataPropsType) => {
+
     return <div>
         <h1>{profileData.fullName} </h1>
         <h4>About me: {profileData.lookingForAJobDescription}</h4>
         <div><b>Need work: </b> {profileData.lookingForAJob ? "yes" : "no"}</div>
         {profileData.lookingForAJob && <div><b>About job:</b> {profileData.lookingForAJobDescription}</div>}
-        <div><b>Contacts:</b>{Object.keys(profileData.contacts).map(key => {
-            // @ts-ignore
+        // @ts-ignore
+        <div><b>Contacts:</b>{Object.keys(profileData.contacts).map((key:KeyType) => {
             return <Contacts key={key} contactTitle={key} contactValue={profileData.contacts[key]}/>
         })}
         </div>
@@ -61,8 +62,8 @@ const ProfileData = ({profileData, isOwner, goToEditMode}:ProfileDataPropsType) 
 }
 
 type ContactsPropsType= {
-    contactTitle: string
-    contactValue: string
+    contactTitle: KeyType
+    contactValue: string | undefined
 }
 const Contacts = ({contactTitle, contactValue}:ContactsPropsType) => {
     return <div className={s.contacts}><b>{contactTitle}</b> {contactValue}</div>

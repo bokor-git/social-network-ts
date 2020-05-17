@@ -14,16 +14,8 @@ type GetUserType = {
     totalCount: number
     error: null | string
 }
-type UnfollowType = {
-    resultCode: number
-    messages: Array<string>
-    data: {}
-}
-type FollowType = {
-    resultCode: number
-    messages: Array<string>
-    data: {}
-}
+
+
 
 export enum ResponseResultCode {
     Success=0,
@@ -32,6 +24,17 @@ export enum ResponseResultCode {
 
 }
 
+type ResponseData<D> = {
+    resultCode: number
+    messages: Array<string>
+    data: D
+}
+
+type AuthMeType = {
+    id: number
+    email: string
+    login: string
+}
 
 export const userAPI = {
     getUsers: (currentPage: number, pageSize: number) => {
@@ -41,71 +44,32 @@ export const userAPI = {
             })
     },
     unfollowAPI: (userID: number) => {
-        return instance.delete<UnfollowType>(`follow/${userID}`).then(response => {
+        return instance.delete<ResponseData<{}>>(`follow/${userID}`).then(response => {
             return response.data
         })
     },
     followAPI: (userID: number) => {
-        return instance.post<FollowType>(`follow/${userID}`).then(response => {
+        return instance.post<ResponseData<{}>>(`follow/${userID}`).then(response => {
             return response.data
         })
     },
 };
 
-type AuthMeType = {
-    resultCode: number
-    messages: Array<string>
-    data: {
-        id: number
-        email: string
-        login: string
-    }
-}
-type AuthLoginType = {
-    resultCode: number
-    messages: Array<string>
-    data: {
-        userId: number
-    }
-}
-type AuthDeleteType = {
-    resultCode: number
-    messages: Array<string>
-    data: {}
-}
 
 export const authAPI = {
     me() {
-        return instance.get<AuthMeType>(`auth/me`).then(res => res.data)
+        return instance.get<ResponseData<AuthMeType>>(`auth/me`).then(res => res.data)
     },
     login: (email: string, password: string, captcha: string) => {
-        return instance.post<AuthLoginType>(`/auth/login`, {email, password, captcha}).then(response => {
+        return instance.post<ResponseData<{ userId: number }>>(`/auth/login`, {email, password, captcha}).then(response => {
             return response.data
         })
     },
     logout: () => {
-        return instance.delete<AuthDeleteType>(`/auth/login`).then((response) => {
+        return instance.delete<ResponseData<{}>>(`/auth/login`).then((response) => {
             return response
         })
     },
-}
-
-type ProfileStatusPutType = {
-    resultCode: number
-    messages: Array<string>
-    data: {}
-}
-type SavePhotoType = {
-    resultCode: number
-    messages: Array<string>
-    data: {
-        photos: PhotosType
-    }
-}
-type SaveProfileType = {
-    resultCode: number
-    messages: Array<string>
-    data: {}
 }
 
 export const profileAPI = {
@@ -116,17 +80,17 @@ export const profileAPI = {
         return instance.get<string>(`/profile/status/${userId}`)
     },
     updateStatus: (status: string) => {
-        return instance.put<ProfileStatusPutType>(`/profile/status`, {status})
+        return instance.put<ResponseData<{}>>(`/profile/status`, {status})
     },
     savePhoto: (photoFile: File) => {
         const formData = new FormData()
         formData.append("image", photoFile)
-        return instance.put<SavePhotoType>(`/profile/photo`, formData, {
+        return instance.put<ResponseData<{ photos: PhotosType }>>(`/profile/photo`, formData, {
             headers: {'Content-Type': 'multipart/form-data'}
         })
     },
     saveProfile: (profile: ProfileDataType) => {
-        return instance.put<SaveProfileType>(`/profile/`, profile)
+        return instance.put<ResponseData<{}>>(`/profile/`, profile)
     }
 };
 export const securityAPI = {
