@@ -1,8 +1,9 @@
-import {profileAPI, ResponseResultCode} from "../api/api";
+import {ResponseResultCode} from "../api/api";
 import {stopSubmit} from "redux-form";
 import {PhotosType, ProfileDataType} from "../types/types"
 import {ThunkAction} from "redux-thunk";
 import {AppStateType, InferActionTypes} from "./redux-store";
+import {profileAPI} from "../api/profile-api";
 
 
 let initialState = {
@@ -49,14 +50,14 @@ const myProfileReducer = (state = initialState, action: ActionsType) => {
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsType>
 
 export const getProfileInfo = (userId: number | null): ThunkType => async (dispatch) => {
-    const response = await profileAPI.getProfile(userId)
-    dispatch(actions.setProfileDate(response.data))
+    const data = await profileAPI.getProfile(userId)
+    dispatch(actions.setProfileDate(data))
 
 };
 
 export const getProfileStatus = (userId: number): ThunkType => async (dispatch) => {
-    const response = await profileAPI.getStatus(userId);
-    dispatch(actions.setStatusProfile(response.data))
+    const data = await profileAPI.getStatus(userId);
+    dispatch(actions.setStatusProfile(data))
 
 };
 

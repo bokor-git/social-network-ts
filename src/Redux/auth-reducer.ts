@@ -1,7 +1,9 @@
-import {authAPI, ResponseResultCode, securityAPI} from "../api/api";
+import {ResponseResultCode} from "../api/api";
 import { stopSubmit } from "redux-form";
 import {ThunkAction} from "redux-thunk";
 import {AppStateType, InferActionTypes} from "./redux-store";
+import {authAPI} from "../api/auth-api";
+import {securityAPI} from "../api/security-api";
 
 export const actions = {
      setAuthUserData: (userID: number | null, email: string | null, login: string | null, isAuth: boolean) => ({type: "SET_USER_DATA", data: {userID, email, login, isAuth}}as const),

@@ -1,8 +1,9 @@
-import {ResponseResultCode, userAPI} from "../api/api";
+import {ResponseResultCode} from "../api/api";
 import {UserType} from  "../types/types"
 import {ThunkAction} from "redux-thunk";
 import {AppStateType, InferActionTypes} from "./redux-store";
 import {Dispatch} from "redux";
+import {userAPI} from "../api/users-api";
 
 
 export const actions = {
