@@ -4,6 +4,7 @@ import {ThunkAction} from "redux-thunk";
 import {AppStateType, BaseThunkType, InferActionTypes} from "./redux-store";
 import {authAPI} from "../api/auth-api";
 import {securityAPI} from "../api/security-api";
+import {FormAction} from "redux-form/lib/actions";
 
 export const actions = {
      setAuthUserData: (userID: number | null, email: string | null, login: string | null, isAuth: boolean) => ({type: "SET_USER_DATA", data: {userID, email, login, isAuth}}as const),
@@ -41,7 +42,7 @@ const authReducer = (state = initialState, action: ActionsTypes): InitialStateTy
     }
 };
 
-type ThunkType = BaseThunkType<ActionsTypes>
+type ThunkType = BaseThunkType<ActionsTypes| FormAction>
 
 export const getAuthUserData = ():ThunkType => async (dispatch) => {
         let meData = await authAPI.me()
@@ -59,7 +60,6 @@ export const singInThunk = (email: string, password: string, captcha: string):Th
             dispatch(getCaptchaUrl())
         }
         let massage = loginData.messages.length>0?loginData.messages[0]:"Some error";
-        // @ts-ignore
         dispatch(stopSubmit("login", {_error: massage}))
     }
 }

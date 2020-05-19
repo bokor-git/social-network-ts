@@ -15,17 +15,14 @@ export type DialogsPropsType = {
 }
 
 
-class DialogsContainerAPI extends React.Component<DialogsPropsType> {
-    render() {
-        return <Dialogs {...this.props}/>
-    }
+function DialogsContainerAPI(props: DialogsPropsType) {
+    return <Dialogs {...props}/>
 }
 
 let mapStateToProps = (state:AppStateType) => {
     return {
         dialogsData: state.dialogPage.dialogsData,
         massageData: state.dialogPage.massageData,
-
     }
 
 };

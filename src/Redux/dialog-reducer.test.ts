@@ -1,11 +1,6 @@
-
-import React from "react";
-import postsReducer, {addPostActionCreator, deletePostActionCreator} from "./posts-reducer";
-
-
+import postsReducer, {addPostThunk, deletePost} from "./posts-reducer";
 
     // 1. Test data
-
     let State = {
         postData: [
             {
@@ -27,12 +22,13 @@ import postsReducer, {addPostActionCreator, deletePostActionCreator} from "./pos
                 postAvatar: "https://www.shareicon.net/data/512x512/2016/06/27/787163_people_512x512.png"
             }
         ],
+        newPostText: " ",
     };
 test('new post should be added', () => {
 
     // 2. Action
 
-    let action = addPostActionCreator("new post text")
+    let action:any = addPostThunk("new post text")
     let newState = postsReducer(State,action)
 
     // 3. Expectation
@@ -43,7 +39,7 @@ test('new post should be deleted', () => {
 
     // 2. Action
 
-    let action = deletePostActionCreator(1)
+    let action:any = deletePost(1)
     let newState = postsReducer(State,action)
     expect(newState.postData.length).toBe(2)
 

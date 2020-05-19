@@ -31,22 +31,20 @@ export type AddEventType ={
 }
 type MapDispatchToPropsType=AddEventType
 
-class EventItemContainerAPI extends React.Component<MapStateToPropsType&MapDispatchToPropsType> {
-    render() {
-        return <div className={s.eventContent}>
-            <EventFilter/>
-            <EventHeader/>
-            <div className="events-content">
-                <Switch>
-                    <Route exact path="/Events" render={() => (<AllEventsItems {...this.props}/>)}/>
-                    <Route exact path="/Events/Half-Marathons" render={() => (<HalfMarathonsItems {...this.props}/>)}/>
-                    <Route exact path="/Events/Full-Marathons" render={() => (<FullMarathonsItems {...this.props}/>)}/>
-                    <Route exact path="/Events/10km-Marathons" render={() => (<Marathons10kmItems {...this.props}/>)}/>
-                    <Route exact path="/Events/5km-Marathons" render={() => (<Marathons5kmItems {...this.props}/>)}/>
-                </Switch>
-            </div>
+function EventItemContainerAPI(props: MapStateToPropsType & MapDispatchToPropsType) {
+    return <div className={s.eventContent}>
+        <EventFilter/>
+        <EventHeader/>
+        <div className="events-content">
+            <Switch>
+                <Route exact path="/Events" render={() => (<AllEventsItems {...props}/>)}/>
+                <Route exact path="/Events/Half-Marathons" render={() => (<HalfMarathonsItems {...props}/>)}/>
+                <Route exact path="/Events/Full-Marathons" render={() => (<FullMarathonsItems {...props}/>)}/>
+                <Route exact path="/Events/10km-Marathons" render={() => (<Marathons10kmItems {...props}/>)}/>
+                <Route exact path="/Events/5km-Marathons" render={() => (<Marathons5kmItems {...props}/>)}/>
+            </Switch>
         </div>
-    }
+    </div>
 }
 
 

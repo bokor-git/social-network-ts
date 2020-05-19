@@ -3,6 +3,7 @@ import {stopSubmit} from "redux-form";
 import {PhotosType, ProfileDataType} from "../types/types"
 import { BaseThunkType, InferActionTypes} from "./redux-store";
 import {profileAPI} from "../api/profile-api";
+import {FormAction} from "redux-form/lib/actions";
 
 
 let initialState = {
@@ -46,7 +47,7 @@ const myProfileReducer = (state = initialState, action: ActionsTypes) => {
     }
 };
 
-type ThunkType = BaseThunkType<ActionsTypes>
+type ThunkType = BaseThunkType<ActionsTypes|FormAction>
 
 export const getProfileInfo = (userId: number | null): ThunkType => async (dispatch) => {
     const data = await profileAPI.getProfile(userId)
@@ -83,7 +84,6 @@ export const saveProfile = (profile: ProfileDataType): ThunkType => async (dispa
     if (response.data.resultCode === ResponseResultCode.Success) {
         dispatch(getProfileInfo(userId))
     } else {
-        // @ts-ignore
         dispatch(stopSubmit("edit-profile", {_error: response.data.messages[0]}))
         return Promise.reject(response.data.messages[0])
     }
