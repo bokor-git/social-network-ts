@@ -13,7 +13,6 @@ const Message = ({text}:MessagePropsType) => {
         </div>
     )
 }
-
 type MassageItemPropsType= {massageData:MassageDataType}
 
 const MassageItem = ({massageData}:MassageItemPropsType) => {

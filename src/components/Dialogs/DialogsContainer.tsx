@@ -24,11 +24,10 @@ let mapStateToProps = (state:AppStateType) => {
         dialogsData: state.dialogPage.dialogsData,
         massageData: state.dialogPage.massageData,
     }
-
 };
 
 
-export default compose(
+export default compose<React.ComponentType>(
     connect(mapStateToProps, {sendMassageCreator:action.sendMassageCreator}),
     withAuthRedirect
 )

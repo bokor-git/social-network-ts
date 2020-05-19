@@ -14,7 +14,7 @@ import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initializeApp} from "./Redux/app-reducer";
 import Loading from "./components/common/Conponents/Loading";
-import store from "./Redux/redux-store";
+import store, {AppStateType} from "./Redux/redux-store";
 import withSuspense from "./hoc/Suspense";
 import Calc from "./components/Store/Store";
 import TodoList from "./components/Store/Todo";
@@ -23,9 +23,20 @@ import PostContainer from "./components/Posts/PostsItem/PostItemContainer";
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 
 
-class App extends React.Component {
-    catchAllUnhandledErrors=(promiseRejectionEvent)=>{
-        alert(promiseRejectionEvent.reason);
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
+
+type MapDispatchToPropsType = {
+    initializeApp:()=>void
+}
+
+type OwnPropsType = {
+    catchAllUnhandledErrors:()=>void
+}
+
+
+class App extends React.Component<MapStateToPropsType&MapDispatchToPropsType&OwnPropsType> {
+    catchAllUnhandledErrors=(e:PromiseRejectionEvent )=>{
+        alert(e.reason);
     };
     componentDidMount() {
         this.props.initializeApp()
@@ -41,7 +52,7 @@ class App extends React.Component {
         }
         return (
             <div className="wrapper">
-                <HeaderContainer store={this.props.store}/>
+                <HeaderContainer/>
                 <Profile/>
                 <Category/>
                 <div className="wrapper-content">
@@ -58,24 +69,24 @@ class App extends React.Component {
                     <Route exact path="*" render={() => <h1>Error 404 </h1>}/>
                     </Switch>
                 </div>
-                <MyEventContainer store={this.props.store}/>
+                <MyEventContainer/>
             </div>
         )
 
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state:AppStateType) => ({
     initialized: state.app.initialized
 });
 
-const AppContainer = compose(
+const AppContainer = compose<React.ComponentType>(
     withRouter,
-    connect(mapStateToProps, {initializeApp})
+    connect<MapStateToPropsType, MapDispatchToPropsType,{},AppStateType>(mapStateToProps, {initializeApp})
 )(App);
 
 
-const SocialNetworkApp = (props) => {
+const SocialNetworkApp:React.FC = () => {
     return <HashRouter>
         <Provider store={store}>
             <AppContainer/>

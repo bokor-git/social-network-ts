@@ -17,8 +17,6 @@ type DialogItemPropsType = {
     dialogsData: Array<DialogPropsType>
 }
 
-
-
 const DialogItem = (props:DialogItemPropsType) => {
     let dialogElement = props.dialogsData.map(
         (dialog:DialogPropsType) => <Dialog name={dialog.name} id={dialog.id}/>

@@ -37,7 +37,7 @@ let mapStateToProps = (state: AppStateType) => {
 };
 
 
-const PostContainer = compose (connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
+const PostContainer = compose<React.ComponentType> (connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
     (mapStateToProps, {addPostThunk, postLikeThunk, deletePost}),
     withAuthRedirect)
 (PostContainerAPI)
