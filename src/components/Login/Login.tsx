@@ -1,5 +1,5 @@
 import React from 'react';
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import {compose} from "redux";
 import {connect} from "react-redux";
 import {singInThunk, singOutThunk} from "../../Redux/auth-reducer";

@@ -2,43 +2,28 @@ import React from 'react';
 import s from "./Dialogs.module.css"
 import DialogItem from "./Dialog/DialogItem";
 import MassageItem from "./Massage/MassageItem";
-import {Field, reduxForm} from "redux-form";
-import {Textarea} from "../common/FormsControls/FormsControls";
-import {maxLengthCreator, required} from "../../utilits/validators/validators";
+import {reduxForm} from "redux-form";
 import {DialogsPropsType} from "./DialogsContainer";
+import {MessageForm} from "./MessageForm";
 
-const maxLength100 =maxLengthCreator(100);
 
-const MessageForm =({handleSubmit}:any)=>{
-    return <form onSubmit={handleSubmit}>
-        <Field component={Textarea}
-                     name={"newMassageBody"}
-                     placeholder={"Your massage"}
-               validate={[required, maxLength100]}/>
-        <button> Send massage</button>
-    </form>
-};
 
-const MessageFormRedux = reduxForm({
+const MessageFormRedux = reduxForm<MassageFormDataType>({
     form: 'massage'
 })(MessageForm);
 
-type DataType = {
+export type MassageFormDataType = {
     newMassageBody: string
 }
 
 const Dialogs = ({dialogsData,massageData,sendMassageCreator}:DialogsPropsType) => {
-
-    let onSubmit= (data:DataType)=>{
+    let onSubmit= (data:MassageFormDataType)=>{
         sendMassageCreator(data.newMassageBody);
     };
-
-
     return (
         <div className={s.dialogs}>
             <div><DialogItem dialogsData={dialogsData}/></div>
             <div><MassageItem massageData={massageData}/></div>
-            // @ts-ignore
            <MessageFormRedux onSubmit={onSubmit}/>
         </div>)
 }
