@@ -15,9 +15,8 @@ import {compose} from "redux";
 import {initializeApp} from "./Redux/app-reducer";
 import Loading from "./components/common/Conponents/Loading";
 import store, {AppStateType} from "./Redux/redux-store";
-import withSuspense from "./hoc/Suspense";
+import {withSuspense} from "./hoc/Suspense";
 import Calc from "./components/Store/Store";
-import TodoList from "./components/Store/Todo";
 import PostContainer from "./components/Posts/PostsItem/PostItemContainer";
 //import DialogsContainer from "./components/Dialogs/DialogsContainer";
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
@@ -33,6 +32,7 @@ type OwnPropsType = {
     catchAllUnhandledErrors:()=>void
 }
 
+const SuspendedDialog = withSuspense(DialogsContainer)
 
 class App extends React.Component<MapStateToPropsType&MapDispatchToPropsType&OwnPropsType> {
     catchAllUnhandledErrors=(e:PromiseRejectionEvent )=>{
@@ -60,9 +60,9 @@ class App extends React.Component<MapStateToPropsType&MapDispatchToPropsType&Own
                     <Redirect exact from="/"  to="/Profile" />
                     <Route exact path="/Profile/:userID?" render={() => (<UserProfileContainer/>)}/>
                     <Route path="/Events" render={() => (<EventContainer/>)}/>
-                    <Route exact path="/Dialogs" render={withSuspense(DialogsContainer)}/>
+                    <Route exact path="/Dialogs" render={()=><SuspendedDialog/>}/>
                     <Route exact path="/Posts" render={() => (<PostContainer/>)}/>
-                    <Route exact path="/Users" render={() => (<UsersContainer title="Own Props Title"/>)}/>
+                    <Route exact path="/Users" render={() => (<UsersContainer/>)}/>
                     <Route exact path="/News" render={() => (<NewsContainer/>)}/>
                     <Route exact path="/Login" render={() => (<Login/>)}/>
                         <Route exact path="/Store" render={() => (<Calc/>)}/>

@@ -40,11 +40,9 @@ type MapDispatchToPropsType = {
 
 
 }
-type OwnPropsType = {
-    title: string
-}
 
-type PropsType = MapStateToPropsType & MapDispatchToPropsType & OwnPropsType
+
+type PropsType = MapStateToPropsType & MapDispatchToPropsType
 
 class UsersAPIComponent extends React.Component<PropsType> {
     componentDidMount() {
@@ -62,7 +60,6 @@ class UsersAPIComponent extends React.Component<PropsType> {
             return <Loading/>;
         return (
             <div>
-                <h2>{this.props.title}</h2>
                 <UserPagesCount currentPage={this.props.currentPage}
                                 onPageChanged={this.onPageChanged}
                                 totalUsersCount={this.props.totalUsersCount}
@@ -93,7 +90,7 @@ let mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 
 export default compose(
     //<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultRootState>
-    connect<MapStateToPropsType, MapDispatchToPropsType, OwnPropsType, AppStateType>
+    connect<MapStateToPropsType, MapDispatchToPropsType, {}, AppStateType>
     (mapStateToProps, {
         follow,
         unfollow,
