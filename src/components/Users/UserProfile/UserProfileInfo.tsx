@@ -2,21 +2,22 @@ import React, {ChangeEvent, useState} from 'react';
 import s from "./UserProfile.module.css"
 import Loading from "../../common/Conponents/Loading";
 import {ProfileDataFormRedux} from "./ProfileDataForm";
-import {ContactsType, ProfileDataType} from "../../../types/types";
+import {ContactsType, PhotosType, ProfileDataType} from "../../../types/types";
 
 
 type UserProfileInfoPropsType = {
-    saveProfile: (profile: ProfileDataType) => void
+    saveProfile: (profile: ProfileDataType) => Promise<any>
     profileData:  ProfileDataType,
     isOwner: boolean
     savePhoto: (file: File) => void
 
 }
 
+
 const UserProfileInfo = (props:UserProfileInfoPropsType) => {
     let [editMode, setEditMode] = useState(false);
-    let onMainPhotoSelected = (e:any) => {
-        if (e.target.files.length) {
+    let onMainPhotoSelected = (e:ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files?.length) {
             props.savePhoto(e.target.files[0]);
         }
     }
@@ -24,9 +25,9 @@ const UserProfileInfo = (props:UserProfileInfoPropsType) => {
     if (!props.profileData) {
         return <Loading/>
     }
-    const onSubmit = async (formData:any) => {
+    const onSubmit = async (formData:ProfileDataType) => {
        await props.saveProfile(formData)
-         await   setEditMode(false)
+        setEditMode(false)
     };
 
     return <div>
@@ -44,7 +45,6 @@ type ProfileDataPropsType = {
     isOwner: boolean
     goToEditMode:()=>void
 }
-type KeyType = keyof ContactsType
 const ProfileData = ({profileData, isOwner, goToEditMode}:ProfileDataPropsType) => {
 
     return <div>
@@ -52,9 +52,8 @@ const ProfileData = ({profileData, isOwner, goToEditMode}:ProfileDataPropsType) 
         <h4>About me: {profileData.lookingForAJobDescription}</h4>
         <div><b>Need work: </b> {profileData.lookingForAJob ? "yes" : "no"}</div>
         {profileData.lookingForAJob && <div><b>About job:</b> {profileData.lookingForAJobDescription}</div>}
-        // @ts-ignore
-        <div><b>Contacts:</b>{Object.keys(profileData.contacts).map((key:KeyType) => {
-            return <Contacts key={key} contactTitle={key} contactValue={profileData.contacts[key]}/>
+        <div><b>Contacts:</b>{Object.keys(profileData.contacts).map((key) => {
+            return <Contacts key={key} contactTitle={key} contactValue={profileData.contacts[key as keyof ContactsType]}/>
         })}
         </div>
         {isOwner && <button onClick={goToEditMode}>Edit mode</button>}
@@ -62,8 +61,8 @@ const ProfileData = ({profileData, isOwner, goToEditMode}:ProfileDataPropsType) 
 }
 
 type ContactsPropsType= {
-    contactTitle: KeyType
-    contactValue: string | undefined
+    contactTitle: string
+    contactValue?: string
 }
 const Contacts = ({contactTitle, contactValue}:ContactsPropsType) => {
     return <div className={s.contacts}><b>{contactTitle}</b> {contactValue}</div>

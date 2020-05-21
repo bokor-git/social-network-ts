@@ -17,7 +17,7 @@ const HeaderMenu = ()=> {
 
 
 type HeaderPropsType = {
-    singOutThunk: (email: string, password: string, captcha: string)=>void
+    singOutThunk: (email: string|null, password: string|null, captcha: string|null)=>void
     login: null | string
     isAuth: boolean
 }
@@ -27,10 +27,8 @@ const Header = ({isAuth, login, singOutThunk}:HeaderPropsType)=> {
         <div className={s.header}>
             <div className={s.headerText}>iRunner</div>
             <HeaderMenu/>
-
             {isAuth? <div className={s.login}><div> <div></div>{login}</div> <button onClick={()=>{
-                // @ts-ignore
-                    singOutThunk()}}>logout</button></div>:
+                    singOutThunk(null,null, null)}}>logout</button></div>:
                 <NavLink to={"/login"}>
             <div className={s.login}>Login</div>
         </NavLink>}

@@ -1,29 +1,28 @@
 import React from "react";
 import style from "./PostItem.module.css"
 import {Redirect} from "react-router-dom";
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utilits/validators/validators";
-import {Textarea} from "../../common/FormsControls/FormsControls";
-import {deletePost, PostType} from "../../../Redux/posts-reducer";
+import {myCreateField, Textarea} from "../../common/FormsControls/FormsControls";
+import {PostType} from "../../../Redux/posts-reducer";
 
 
 const maxLength10 =maxLengthCreator(15)
+type PostFormTypeKeys = Extract<keyof PostFormType, string>
 
-
-
-// @ts-ignore
-const PostForm = ({handleSubmit}) => {
+const PostForm:React.FC<InjectedFormProps<PostFormType>> = ({handleSubmit}) => {
     return <form onSubmit={handleSubmit}>
-        <div><Field placeholder={"Post"} name={"Post"} component={Textarea}
-                    validate={[required, maxLength10]}/></div>
+        <div>
+            {myCreateField<PostFormTypeKeys>("Post", "Post", [required, maxLength10], "Textarea",)}
+        </div>
         <button> Add post</button>
     </form>
 }
-type formData = {
+type PostFormType = {
     Post:string
 }
-type ErrorType = string
-const ReduxPostForm = reduxForm  <formData, {}, ErrorType>({
+
+const ReduxPostForm = reduxForm  <PostFormType>({
     form: 'post'
 })(PostForm);
 
@@ -55,7 +54,7 @@ const PostItem =  ({isAuth, postData, postLikeThunk, addPostThunk, deletePost}:P
         </button>
     </div>);
 
-    let onSubmit = (formData:formData) => {
+    let onSubmit = (formData:PostFormType) => {
         addPostThunk((formData.Post))};
 
     return (

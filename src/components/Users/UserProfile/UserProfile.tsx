@@ -6,7 +6,7 @@ import PostContainer from "../../Posts/PostsItem/PostItemContainer"
 import {ProfileDataType} from "../../../types/types";
 
 type UserProfilePropsType = {
-    saveProfile: (profile: ProfileDataType) => void
+    saveProfile: (profile: ProfileDataType) => Promise<any>
     profileData: ProfileDataType,
     isOwner: boolean
     savePhoto: (file: File) => void

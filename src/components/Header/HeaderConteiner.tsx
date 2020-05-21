@@ -13,7 +13,7 @@ type mapStateToPropsType = {
 }
 
 type mapDispatchToPropsType =  {
-    singOutThunk: (email: string, password: string, captcha: string)=>void
+    singOutThunk: (email: string|null, password: string|null, captcha: string|null)=>void
 }
 
 type HeaderContainerContainerType = mapStateToPropsType&mapDispatchToPropsType
