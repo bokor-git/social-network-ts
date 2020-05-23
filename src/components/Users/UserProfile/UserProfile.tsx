@@ -16,7 +16,7 @@ type UserProfilePropsType = {
 }
 
 
-const UserProfile = (props:UserProfilePropsType) => {
+function UserProfile(props: UserProfilePropsType) {
 
 
     return <div className={s.profile}>
@@ -28,7 +28,8 @@ const UserProfile = (props:UserProfilePropsType) => {
         <UserProfileStatusHooks status={props.status}
                                 updateProfileStatus={props.updateProfileStatus}
                                 getProfileStatus={props.getProfileStatus}/>
-      <PostContainer/>
+        <PostContainer/>
     </div>
 }
+
 export default UserProfile;

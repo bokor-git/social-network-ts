@@ -1,7 +1,7 @@
 import React from "react";
 import style from "./PostItem.module.css"
 import {Redirect} from "react-router-dom";
-import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utilits/validators/validators";
 import {myCreateField, Textarea} from "../../common/FormsControls/FormsControls";
 import {PostType} from "../../../Redux/posts-reducer";
@@ -35,7 +35,8 @@ type PostItemPropsType = {
     deletePost: (userID: number) => void
 }
 
-const PostItem =  ({isAuth, postData, postLikeThunk, addPostThunk, deletePost}:PostItemPropsType) => {
+function PostItem(props: PostItemPropsType) {
+    let {isAuth, postData, postLikeThunk, addPostThunk, deletePost} = props;
     if (isAuth === false) return <Redirect to={"/Login"}/>
     let postElement = postData.map
     (p => <div className={style.post}>
@@ -54,8 +55,9 @@ const PostItem =  ({isAuth, postData, postLikeThunk, addPostThunk, deletePost}:P
         </button>
     </div>);
 
-    let onSubmit = (formData:PostFormType) => {
-        addPostThunk((formData.Post))};
+    let onSubmit = (formData: PostFormType) => {
+        addPostThunk((formData.Post))
+    };
 
     return (
         <div>
@@ -67,7 +69,7 @@ const PostItem =  ({isAuth, postData, postLikeThunk, addPostThunk, deletePost}:P
                 {postElement}
             </div>
         </div>)
-};
+}
 
 
 export default PostItem

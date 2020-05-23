@@ -11,7 +11,8 @@ type UserPropsType = {
         user: UserType
 }
 
-const User = ({follow, unfollow, followingInProgress, user}:UserPropsType) => {
+function User(props: UserPropsType) {
+    let {follow, unfollow, followingInProgress, user} = props;
     return <div className={s.users}>
                         <span>
                             <NavLink exact to={"/Profile/" + user.id}>
@@ -20,11 +21,11 @@ const User = ({follow, unfollow, followingInProgress, user}:UserPropsType) => {
                                 alt="No Avatar"/></div>
                                       </NavLink><div>
                                 {user.followed ?
-                                    <button disabled={followingInProgress.some((id:number) => id === user.id)}
+                                    <button disabled={followingInProgress.some((id: number) => id === user.id)}
                                             onClick={() => {
                                                 unfollow(user.id)
                                             }}>Unfollow</button> :
-                                    <button disabled={followingInProgress.some((id:number) => id === user.id)}
+                                    <button disabled={followingInProgress.some((id: number) => id === user.id)}
                                             onClick={() => {
                                                 follow(user.id)
                                             }}>Follow</button>}

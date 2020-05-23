@@ -2,8 +2,8 @@ import React from 'react';
 import s from "./Header.module.css"
 import {NavLink} from "react-router-dom";
 
-const HeaderMenu = ()=> {
-    return(
+function HeaderMenu() {
+    return (
         <div className={s.search}>
             <div className={s.menu}><NavLink to="/Events" activeClassName={s.active}>Events </NavLink>
                 <NavLink to="/Users" activeClassName={s.active}>People</NavLink>
@@ -15,23 +15,29 @@ const HeaderMenu = ()=> {
 }
 
 
-
 type HeaderPropsType = {
     singOutThunk: (email: string|null, password: string|null, captcha: string|null)=>void
     login: null | string
     isAuth: boolean
 }
 
-const Header = ({isAuth, login, singOutThunk}:HeaderPropsType)=> {
-    return(
+function Header({isAuth, login, singOutThunk}: HeaderPropsType) {
+    return (
         <div className={s.header}>
             <div className={s.headerText}>iRunner</div>
             <HeaderMenu/>
-            {isAuth? <div className={s.login}><div> <div></div>{login}</div> <button onClick={()=>{
-                    singOutThunk(null,null, null)}}>logout</button></div>:
+            {isAuth ? <div className={s.login}>
+                    <div>
+                        <div></div>
+                        {login}</div>
+                    <button onClick={() => {
+                        singOutThunk(null, null, null)
+                    }}>logout
+                    </button>
+                </div> :
                 <NavLink to={"/login"}>
-            <div className={s.login}>Login</div>
-        </NavLink>}
+                    <div className={s.login}>Login</div>
+                </NavLink>}
         </div>
 
     )

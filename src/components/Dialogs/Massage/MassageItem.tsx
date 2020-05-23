@@ -6,16 +6,20 @@ import {MassageDataType} from "../DialogsContainer";
 type MessagePropsType= {
     text:string
 }
-const Message = ({text}:MessagePropsType) => {
+
+function Message(props: MessagePropsType) {
+    let {text} = props;
     return (
         <div className={s.massages}>
             {text}
         </div>
     )
 }
+
 type MassageItemPropsType= {massageData:MassageDataType}
 
-const MassageItem = ({massageData}:MassageItemPropsType) => {
+function MassageItem(props: MassageItemPropsType) {
+    let {massageData} = props;
     let massageElement = massageData.map(
         massage => <Message key={massage.id} text={massage.text}/>)
     return (<div className={s.massages}>
@@ -23,4 +27,5 @@ const MassageItem = ({massageData}:MassageItemPropsType) => {
         </div>
     )
 }
+
 export default MassageItem;

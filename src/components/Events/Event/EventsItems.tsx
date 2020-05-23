@@ -1,6 +1,6 @@
 import React from 'react';
 import s from "./../Events.module.css"
-import { EventDataType} from "../EventContainer";
+import {EventDataType} from "../EventContainer";
 
 
 type ItemType = {
@@ -11,7 +11,8 @@ type ItemType = {
     addEvent: (eventID:number, evText:string)=>void
 }
 
-const Item =({poster, text , id, addEvent}:ItemType)=>{
+function Item(props: ItemType) {
+    let {poster, text, id, addEvent} = props;
     return <div>
         <img alt="0" src={poster}/>
         <div>{text}</div>
@@ -22,48 +23,56 @@ const Item =({poster, text , id, addEvent}:ItemType)=>{
             </button>
         </div>
     </div>
-};
-export const FullMarathonsItems = ({eventData, addEvent}:EventsItemsType) => {
-    return <div>
-        <div className={s.eventItem}>
-            {eventData.filter(ev=>ev.type==="full").map(ev =>  <Item {...ev} addEvent={addEvent}/>)
-            }
-        </div>
-    </div>
-};
+}
 
-export const Marathons5kmItems = ({eventData, addEvent}:EventsItemsType) => {
+export function FullMarathonsItems(props: EventsItemsType) {
+    let {eventData, addEvent} = props;
     return <div>
         <div className={s.eventItem}>
-            {eventData.filter(ev=>ev.type==="5km").map(ev =>  <Item {...ev} addEvent={addEvent}/>)
+            {eventData.filter(ev => ev.type === "full").map(ev => <Item {...ev} addEvent={addEvent}/>)
             }
         </div>
     </div>
-};
-export const Marathons10kmItems = ({eventData, addEvent}:EventsItemsType) => {
+}
+
+export function Marathons5kmItems(props: EventsItemsType) {
+    let {eventData, addEvent} = props;
     return <div>
         <div className={s.eventItem}>
-            {eventData.filter(ev=>ev.type==="10km").map(ev =>  <Item {...ev} addEvent={addEvent}/>)
+            {eventData.filter(ev => ev.type === "5km").map(ev => <Item {...ev} addEvent={addEvent}/>)
             }
         </div>
     </div>
-};
-export const HalfMarathonsItems = ({eventData, addEvent}:EventsItemsType) => {
+}
+
+export function Marathons10kmItems(props: EventsItemsType) {
+    let {eventData, addEvent} = props;
     return <div>
         <div className={s.eventItem}>
-            {eventData.filter(ev=>ev.type==="half").map(ev =>  <Item {...ev} addEvent={addEvent}/>)
+            {eventData.filter(ev => ev.type === "10km").map(ev => <Item {...ev} addEvent={addEvent}/>)
             }
         </div>
     </div>
-};
+}
+
+export function HalfMarathonsItems(props: EventsItemsType) {
+    let {eventData, addEvent} = props;
+    return <div>
+        <div className={s.eventItem}>
+            {eventData.filter(ev => ev.type === "half").map(ev => <Item {...ev} addEvent={addEvent}/>)
+            }
+        </div>
+    </div>
+}
 
 type EventsItemsType = {
     eventData: EventDataType
     addEvent: (eventID:number, evText:string)=>void
 }
 
-export const AllEventsItems = ({eventData, addEvent}:EventsItemsType) => {
+export function AllEventsItems(props: EventsItemsType) {
+    let {eventData, addEvent} = props;
     return <div className={s.eventItem}>
-        {eventData.map(ev =>  <Item {...ev} addEvent={addEvent}/>)}
+        {eventData.map(ev => <Item {...ev} addEvent={addEvent}/>)}
     </div>
-};
+}

@@ -21,10 +21,8 @@ type MapDispatchToPropsType = {
 }
 
 
-class PostContainerAPI extends React.Component<MapStateToPropsType & MapDispatchToPropsType> {
-    render() {
-        return <PostItem {...this.props}/>
-    }
+function PostContainerAPI(props: MapStateToPropsType & MapDispatchToPropsType) {
+    return <PostItem {...props}/>
 }
 
 

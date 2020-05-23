@@ -6,19 +6,20 @@ type UserProfileStatusHooksPropsType = {
     getProfileStatus: (userId: number | null) => void
 }
 
-const UserProfileStatusHooks = (props:UserProfileStatusHooksPropsType) => {
+function UserProfileStatusHooks(props: UserProfileStatusHooksPropsType) {
     let [editMode, setEditMode] = useState(false);
     let [status, setStatus] = useState(props.status);
-    useEffect(()=>{
-        setStatus(props.status)},[props.status]);
-    let activateEditMode =()=>{
+    useEffect(() => {
+        setStatus(props.status)
+    }, [props.status]);
+    let activateEditMode = () => {
         setEditMode(true)
     }
-    let deactivatedEditNode= ()=> {
+    let deactivatedEditNode = () => {
         setEditMode(false)
         props.updateProfileStatus(status);
     }
-    let onStatusChange=(e:ChangeEvent<HTMLInputElement>)=>{
+    let onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
         setStatus(e.currentTarget.value)
     };
 
@@ -27,7 +28,7 @@ const UserProfileStatusHooks = (props:UserProfileStatusHooksPropsType) => {
         <div><span onDoubleClick={activateEditMode}>{props.status || "no status"}</span></div>}
         {editMode &&
         <div><input autoFocus={true} onChange={onStatusChange} onBlur={deactivatedEditNode}
-                value={status}/></div>}
+                    value={status}/></div>}
     </div>
 }
 

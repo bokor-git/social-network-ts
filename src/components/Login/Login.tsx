@@ -15,12 +15,13 @@ type LoginFormOwnProps = {
     captchaUrl: string | null
 }
 
-const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, LoginFormOwnProps> & LoginFormOwnProps> = ({handleSubmit, error, captchaUrl}) => {
+function LoginForm(props: InjectedFormProps<LoginFormDataType, LoginFormOwnProps> & LoginFormOwnProps) {
+    let {handleSubmit, error, captchaUrl} = props;
 
     return <form onSubmit={handleSubmit}>
         {myCreateField<LoginFormDataTypeKeys>("Email", "Email", [required, maxLength40], "Input",)}
         {myCreateField<LoginFormDataTypeKeys>("Password", "Password", [required, maxLength40], "Input", {type: "password"})}
-        {myCreateField<LoginFormDataTypeKeys>(undefined, "rememberMe", [], "Input",{type: "checkbox"}, "remember me" )}
+        {myCreateField<LoginFormDataTypeKeys>(undefined, "rememberMe", [], "Input", {type: "checkbox"}, "remember me")}
 
         {error && <div className={style.summaryError}>
             {error}
@@ -33,7 +34,7 @@ const LoginForm: React.FC<InjectedFormProps<LoginFormDataType, LoginFormOwnProps
             <button>login</button>
         </div>
     </form>
-};
+}
 
 const ReduxLoginForm = reduxForm<LoginFormDataType, LoginFormOwnProps>({
     form: 'login'
@@ -59,10 +60,10 @@ type LoginFormDataType = {
 
 type LoginFormDataTypeKeys = Extract<keyof LoginFormDataType, string>
 
-const Login: React.FC<mapStateToPropsType & mapDispatchToPropsType> = (props) => {
+function Login(props: mapStateToPropsType & mapDispatchToPropsType) {
 
     const onSubmit = (formData: LoginFormDataType) => {
-        props.singInThunk(formData.Email, formData.Password, formData.captcha, formData.rememberMe );
+        props.singInThunk(formData.Email, formData.Password, formData.captcha, formData.rememberMe);
     };
 
     if (props.isAuth) {

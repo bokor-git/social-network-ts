@@ -4,7 +4,6 @@ import User from "./User";
 import {UserType} from "../../types/types";
 
 
-
 type PropsType= {
     users: Array<UserType>
     follow:(userID: number)=>void
@@ -13,14 +12,15 @@ type PropsType= {
 }
 
 
-const Users:React.FC<PropsType> = ({users,follow, unfollow, followingInProgress}) => {
+function Users(props: PropsType) {
+    let {users, follow, unfollow, followingInProgress} = props;
     return <div className={s.users}>
         <h1>USER LIST</h1>
         {users.map(u => <User key={u.id}
-                                 user={u}
-                                 followingInProgress={followingInProgress}
-                                 unfollow={unfollow}
-                                 follow={follow}/>)
+                              user={u}
+                              followingInProgress={followingInProgress}
+                              unfollow={unfollow}
+                              follow={follow}/>)
         }
     </div>
 }

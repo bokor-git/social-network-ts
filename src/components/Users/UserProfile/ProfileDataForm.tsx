@@ -10,7 +10,9 @@ type OwnPropsType = {
 
 
 type PostFormTypeKeyType = Extract<keyof ProfileDataType, string>
-const ProfileDataForm:React.FC<InjectedFormProps<ProfileDataType,OwnPropsType>&OwnPropsType> = ({handleSubmit, profileData, error}) => {
+
+function ProfileDataForm(props: InjectedFormProps<ProfileDataType, OwnPropsType> & OwnPropsType) {
+    let {handleSubmit, profileData, error} = props;
     return <form>
         {error && <div className={style.summaryError}>
             {error}
@@ -18,8 +20,12 @@ const ProfileDataForm:React.FC<InjectedFormProps<ProfileDataType,OwnPropsType>&O
         }
         <button onClick={handleSubmit}>Save</button>
         <div><b>Full nave</b>: {myCreateField<PostFormTypeKeyType>("Full Name", "fullName", [], "input")} </div>
-        <div><b>Looking for a job</b>: {myCreateField<PostFormTypeKeyType>("", "lookingForAJob", [], "Input", {type: "checkbox"})} </div>
-        <div><b>My skills</b>: {myCreateField<PostFormTypeKeyType>("My skills", "lookingForAJobDescription", [], "textarea",)} </div>
+        <div><b>Looking for a
+            job</b>: {myCreateField<PostFormTypeKeyType>("", "lookingForAJob", [], "Input", {type: "checkbox"})}
+        </div>
+        <div><b>My
+            skills</b>: {myCreateField<PostFormTypeKeyType>("My skills", "lookingForAJobDescription", [], "textarea",)}
+        </div>
         <div><b>About me</b>: {myCreateField<PostFormTypeKeyType>("About me", "aboutMe", [], "textarea")} </div>
         <div><b>Contacts:</b>{Object.keys(profileData.contacts).map((key) => {
             return <div>
@@ -29,7 +35,7 @@ const ProfileDataForm:React.FC<InjectedFormProps<ProfileDataType,OwnPropsType>&O
         })}
         </div>
     </form>
-};
+}
 
 export const ProfileDataFormRedux = reduxForm<ProfileDataType, OwnPropsType>({
     form: 'edit-profile'

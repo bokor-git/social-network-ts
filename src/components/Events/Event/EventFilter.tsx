@@ -1,7 +1,7 @@
 import React from 'react';
 import s from "./../Events.module.css"
 
-const EventFilter = () => {
+function EventFilter() {
     return <div className={s.eventFilter}>
         <div>Event Filter</div>
         <div>Price:</div>
@@ -10,13 +10,13 @@ const EventFilter = () => {
         <input id="input" type="range" min="100" max="200" step="2"/>
         <div>Rating:</div>
         <input id="input" type="range" min="100" max="200" step="2"/>
-            <div>
-                <button >
-                    Find Events
-                </button>
-            </div>
+        <div>
+            <button>
+                Find Events
+            </button>
+        </div>
     </div>
-};
+}
 
 
 export default EventFilter;

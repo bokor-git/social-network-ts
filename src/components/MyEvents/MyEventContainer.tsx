@@ -1,10 +1,8 @@
 import React from 'react';
-import {connect, DefaultRootState} from "react-redux";
+import {connect} from "react-redux";
 import MyEventItem from "./MyEventItem";
 import {cleanThunk, EventType} from "../../Redux/events-reducer";
 import {AppStateType} from "../../Redux/redux-store";
-
-
 
 
 type mapStateToPropsType = {
@@ -15,15 +13,11 @@ type mapDispatchToPropsType = {
     cleanThunk: ()=>void
 }
 
-class MyEventItemContainerAPI extends React.Component<mapStateToPropsType & mapDispatchToPropsType> {
-
-    render() {
-        return <MyEventItem
-            myEvents={this.props.myEvents}
-            cleanThunk={this.props.cleanThunk}
-        />
-    }
-
+function MyEventItemContainerAPI(props: mapStateToPropsType & mapDispatchToPropsType) {
+    return <MyEventItem
+        myEvents={props.myEvents}
+        cleanThunk={props.cleanThunk}
+    />
 }
 
 let mapStateToProps = (state: AppStateType) => {

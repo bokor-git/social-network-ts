@@ -18,10 +18,8 @@ type mapDispatchToPropsType =  {
 
 type HeaderContainerContainerType = mapStateToPropsType&mapDispatchToPropsType
 
-class HeaderContainerIPA extends React.Component<HeaderContainerContainerType> {
-    render() {
-        return <Header {...this.props}/>
-    }
+function HeaderContainerIPA(props: HeaderContainerContainerType) {
+    return <Header {...props}/>
 }
 
 let mapStateToProps = (state:AppStateType) => ({

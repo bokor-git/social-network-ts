@@ -1,4 +1,4 @@
-import {connect, DefaultRootState} from "react-redux";
+import {connect} from "react-redux";
 import News from "./News";
 import React from "react";
 import {AppStateType} from "../../Redux/redux-store";
@@ -9,12 +9,8 @@ type MapStateToPropsType = {
     }>
 }
 
-class NewsContainerAPI extends React.Component<MapStateToPropsType> {
-    render() {
-        return <News newsData={this.props.newsData}/>
-
-    }
-
+function NewsContainerAPI(props: MapStateToPropsType) {
+    return <News newsData={props.newsData}/>
 }
 
 

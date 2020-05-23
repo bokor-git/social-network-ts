@@ -6,7 +6,8 @@ type MyEventItemPropsType = {
     cleanThunk: () => void
 }
 
-const MyEventItem = ({myEvents, cleanThunk}: MyEventItemPropsType) => {
+function MyEventItem(props: MyEventItemPropsType) {
+    let {myEvents, cleanThunk} = props;
     return <div className={s.event}>
         <h2>My Events:</h2>
         {myEvents.map((e) => (<li>{[e]} </li>))}

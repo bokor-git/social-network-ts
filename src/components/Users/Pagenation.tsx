@@ -9,7 +9,8 @@ type PropsType = {
     portionSize: number
 }
 
-const UserPagesCount = ({totalUsersCount, pageSize, onPageChanged, currentPage, portionSize}: PropsType) => {
+function UserPagesCount(props: PropsType) {
+    let {totalUsersCount, pageSize, onPageChanged, currentPage, portionSize} = props;
 
     let pageCount = Math.ceil(totalUsersCount / pageSize)
     let pages = [];
@@ -36,5 +37,6 @@ const UserPagesCount = ({totalUsersCount, pageSize, onPageChanged, currentPage, 
             setPortionNumber(portionNumber + 1)
         }}>next</button>}
     </div>
-};
+}
+
 export default UserPagesCount;
