@@ -7,7 +7,7 @@ import {ContactsType, ProfileDataType} from "../../../types/types";
 
 type UserProfileInfoPropsType = {
     saveProfile: (profile: ProfileDataType) => Promise<any>
-    profileData:  ProfileDataType,
+    profileData:  ProfileDataType
     isOwner: boolean
     savePhoto: (file: File) => void
 
@@ -43,7 +43,7 @@ function UserProfileInfo(props: UserProfileInfoPropsType) {
 }
 
 type ProfileDataPropsType = {
-    profileData:  ProfileDataType,
+    profileData:  ProfileDataType
     isOwner: boolean
     goToEditMode:()=>void
 }

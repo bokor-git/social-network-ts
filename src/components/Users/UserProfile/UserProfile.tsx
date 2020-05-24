@@ -7,7 +7,7 @@ import {ProfileDataType} from "../../../types/types";
 
 type UserProfilePropsType = {
     saveProfile: (profile: ProfileDataType) => Promise<any>
-    profileData: ProfileDataType,
+    profileData: ProfileDataType
     isOwner: boolean
     savePhoto: (file: File) => void
     status: " " | string

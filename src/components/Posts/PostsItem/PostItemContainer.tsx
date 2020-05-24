@@ -5,6 +5,7 @@ import React from "react";
 import withAuthRedirect from "../../../hoc/AuthRedirect";
 import {compose} from "redux";
 import {AppStateType} from "../../../Redux/redux-store";
+import {ProfileDataType} from "../../../types/types";
 
 
 type MapStateToPropsType = {
@@ -27,10 +28,11 @@ function PostContainerAPI(props: MapStateToPropsType & MapDispatchToPropsType) {
 
 
 let mapStateToProps = (state: AppStateType) => {
+
     return {
         postData: state.postPage.postData,
         newPostText: state.postPage.newPostText,
-        isAuth: state.auth.isAuth
+        isAuth: state.auth.isAuth,
     };
 };
 

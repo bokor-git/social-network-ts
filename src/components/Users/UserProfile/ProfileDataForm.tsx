@@ -12,6 +12,7 @@ type OwnPropsType = {
 type PostFormTypeKeyType = Extract<keyof ProfileDataType, string>
 
 function ProfileDataForm(props: InjectedFormProps<ProfileDataType, OwnPropsType> & OwnPropsType) {
+
     let {handleSubmit, profileData, error} = props;
     return <form>
         {error && <div className={style.summaryError}>

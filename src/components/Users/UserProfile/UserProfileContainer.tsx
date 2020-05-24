@@ -50,7 +50,7 @@ class MyProfileContainerAPI extends React.Component<PropsType> {
         this.refreshProfile()
     }
 
-    componentDidUpdate(prevProps:PropsType, prevState:PropsType, snapshot:any) {
+    componentDidUpdate(prevProps:PropsType, prevState:PropsType) {
         if (this.props.status != prevProps.status) {
             this.refreshProfile()
         }

@@ -35,8 +35,7 @@ type PostItemPropsType = {
     deletePost: (userID: number) => void
 }
 
-function PostItem(props: PostItemPropsType) {
-    let {isAuth, postData, postLikeThunk, addPostThunk, deletePost} = props;
+function PostItem({isAuth, postData, postLikeThunk, addPostThunk, deletePost}: PostItemPropsType) {
     if (isAuth === false) return <Redirect to={"/Login"}/>
     let postElement = postData.map
     (p => <div className={style.post}>
