@@ -9,19 +9,19 @@
     position: absolute ;
     font-size: 50px;
     font-weight: bold;
-    left: 220px;
+    margin-left: 30px;
 }
 
 .login{
     color: white;
     position: absolute;
-    right: 200px;
+    margin-left: 1100px;
     top: 10px;
     padding: 2px;
 }
 .search {
     position: absolute;
-    left: 500px;
+    margin-left: 250px;
     top: -25px;
 
 }

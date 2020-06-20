@@ -4,14 +4,8 @@ import {NavLink} from "react-router-dom";
 import {connect} from "react-redux";
 import {getProfileInfo} from "../../Redux/profile-reducer";
 import {AppStateType} from "../../Redux/redux-store";
-import {ProfileDataType} from "../../types/types";
 
-type mapStateToPropsType = {
-    profileData:  ProfileDataType
-    isAuth: boolean
-    userID: null | number
-    status: " " | string
-}
+type mapStateToPropsType = ReturnType<typeof mapStateToProps>
 
 type mapDispatchToPropsType =  {
     getProfileInfo: (userID:number|null)=>void
@@ -29,10 +23,8 @@ class Profile extends React.Component<ProfilePropsType> {
         return (
             <div className={s.profile}>
                 <h3>Profile menu</h3>
-                {this.props.isAuth ?
-
-                    <img src={this.props.profileData != null ? this.props.profileData.photos.small :
-                        "https://www.shareicon.net/data/512x512/2016/06/27/787163_people_512x512.png"}/> :
+                {this.props.isAuth&&this.props.profileData!=null?
+                    <img src={this.props.profileData.photos?.small} /> :
                     <img src="https://www.shareicon.net/data/512x512/2016/06/27/787163_people_512x512.png"/>
                 }
                 <h4><NavLink to="/Dialogs" activeClassName={s.active}>My Dialogs</NavLink></h4>

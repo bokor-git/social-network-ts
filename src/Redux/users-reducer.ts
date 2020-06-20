@@ -1,4 +1,4 @@
-import {ResponseResultCode} from "../api/api";
+import {ResponseData, ResponseResultCode} from "../api/api";
 import {UserType} from  "../types/types"
 import {ThunkAction} from "redux-thunk";
 import {AppStateType, BaseThunkType, InferActionTypes} from "./redux-store";
@@ -96,7 +96,7 @@ export const requestUsers = (currentPage: number, pageSize: number):ThunkType =>
 }
 
 type dispatchMethodType = (userID:number)=> ActionsTypes
-export const _followUnfollowFlow = (userID: number, dispatchMethod: dispatchMethodType, response: any, dispatch: DispatchType) => {
+export const _followUnfollowFlow = (userID: number, dispatchMethod: dispatchMethodType, response: ResponseData<{}>, dispatch: DispatchType) => {
     dispatch(actions.toggleFollowingProgress(true, userID))
     if (response.resultCode === ResponseResultCode.Success) {
         dispatch(dispatchMethod(userID))

@@ -13,11 +13,7 @@ import {compose} from "redux";
 import {ProfileDataType} from "../../../types/types";
 import {AppStateType} from "../../../Redux/redux-store";
 
-type MapStateToPropsType = {
-    profileData:  ProfileDataType
-    status: " " | string
-    authUserId: number
-}
+type MapStateToPropsType = ReturnType<typeof mapStateToProps>
 
 type MapDispatchToProps = {
     getProfileStatus: (userId: number| null)=>void
