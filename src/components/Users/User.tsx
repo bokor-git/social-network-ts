@@ -2,6 +2,7 @@ import React from 'react';
 import {NavLink} from "react-router-dom";
 import s from "./Users.module.css";
 import {UserType} from "../../types/types";
+import {Button} from "@material-ui/core";
 
 
 type UserPropsType = {
@@ -21,15 +22,14 @@ function User(props: UserPropsType) {
                                 alt="No Avatar"/></div>
                                       </NavLink><div>
                                 {user.followed ?
-                                    <button disabled={followingInProgress.some((id: number) => id === user.id)}
+                                    <Button variant="contained" color="default" disabled={followingInProgress.some((id: number) => id === user.id)}
                                             onClick={() => {
                                                 unfollow(user.id)
-                                            }}>Unfollow</button> :
-                                    <button disabled={followingInProgress.some((id: number) => id === user.id)}
+                                            }}>Unfollow</Button> :
+                                    <Button variant="contained" color="primary" disabled={followingInProgress.some((id: number) => id === user.id)}
                                             onClick={() => {
                                                 follow(user.id)
-                                            }}>Follow</button>}
-                            <button>Like</button>
+                                            }}>Follow</Button>}
                             </div>
                         </span>
 

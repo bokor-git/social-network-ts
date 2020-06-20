@@ -19,7 +19,6 @@ class Profile extends React.Component<ProfilePropsType> {
     }
 
     render() {
-
         return (
             <div className={s.profile}>
                 <h3>Profile menu</h3>

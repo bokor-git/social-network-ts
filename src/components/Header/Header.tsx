@@ -1,6 +1,7 @@
 import React from 'react';
 import s from "./Header.module.css"
 import {NavLink} from "react-router-dom";
+import {Button} from "@material-ui/core";
 
 function HeaderMenu() {
     return (
@@ -30,10 +31,9 @@ function Header({isAuth, login, singOutThunk}: HeaderPropsType) {
                     <div>
                         <div></div>
                         {login}</div>
-                    <button onClick={() => {
+                    <Button onClick={() => {
                         singOutThunk(null, null, null)
-                    }}>logout
-                    </button>
+                    }} variant="contained">logout</Button>
                 </div> :
                 <NavLink to={"/login"}>
                     <div className={s.login}>Login</div>

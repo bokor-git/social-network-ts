@@ -1,6 +1,8 @@
 import React from 'react';
 import s from "./../Events.module.css"
 import {EventDataType} from "../EventContainer";
+import {Button} from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
 
 
 type ItemType = {
@@ -8,20 +10,20 @@ type ItemType = {
     text: string
     poster: string
     type: string
-    addEvent: (eventID:number, evText:string)=>void
+    addEvent: (eventID: number, evText: string) => void
 }
 
 function Item(props: ItemType) {
     let {poster, text, id, addEvent} = props;
     return <div>
-        <img alt="0" src={poster}/>
-        <div>{text}</div>
-        <div>
-            <button id="addEvent" onClick={() => addEvent(id, text)}>
-                Accept
-                Event
-            </button>
-        </div>
+        <Paper elevation={3} style={{margin:"10px", padding:"10px"}}>
+            <img alt="0" src={poster}/>
+            <div>{text}</div>
+            <div>
+                <Button id="addEvent" color="primary" onClick={() => addEvent(id, text)} variant="contained">Accept
+                    Event</Button>
+            </div>
+        </Paper>
     </div>
 }
 
@@ -67,7 +69,7 @@ export function HalfMarathonsItems(props: EventsItemsType) {
 
 type EventsItemsType = {
     eventData: EventDataType
-    addEvent: (eventID:number, evText:string)=>void
+    addEvent: (eventID: number, evText: string) => void
 }
 
 export function AllEventsItems(props: EventsItemsType) {
